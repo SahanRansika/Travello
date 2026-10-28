@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destinations | Travello</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="container nav-content">
+        <a href="index.html" class="logo">Travel<span>lo.</span></a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="planner.html">Trip Planner</a>
+            <a href="destination.html" class="active">Destinations</a>
+            <a href="bookings.html">My Bookings</a>
+            <a href="admin.html">Admin</a>
+        </nav>
+        <a href="planner.html" class="btn btn-primary">Plan a Trip ↗</a>
+    </div>
+</header>
+
+<main>
+    <section class="page-hero">
+        <div class="container">
+            <span class="badge">DESTINATION DISCOVERY</span>
+            <h1>Find your <span>somewhere.</span></h1>
+            <p>Discover beaches, mountains, nature escapes, and cultural destinations.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="destination-tools">
+                <label>
+                    Search Destinations
+                    <input type="search" id="destinationSearch"
+                           placeholder="Search destination...">
+                </label>
+
+                <div>
+                    <p class="section-label">FILTER BY EXPERIENCE</p>
+                    <div class="filter-row">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="beach">Beach</button>
+                        <button class="filter-btn" data-filter="nature">Nature</button>
+                        <button class="filter-btn" data-filter="culture">Culture</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-3" id="destinationList">
+                <article class="destination-card"
+                         data-category="beach"
+                         data-search="mirissa beach ocean southern coast">
+                    <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=900&q=80"
+                         alt="Beach scenery">
+                    <div class="card-body">
+                        <span class="tag">BEACH ESCAPE</span>
+                        <h3>Mirissa, Sri Lanka</h3>
+                        <p>Coastal scenery, golden sand, and ocean activities.</p>
+                        <a href="planner.html?destination=Mirissa" class="btn btn-primary">
+                            Plan a Trip →
+                        </a>
+                    </div>
+                </article>
+
+                <article class="destination-card"
+                         data-category="nature"
+                         data-search="ella mountain hiking tea plantations waterfall">
+                    <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=80"
+                         alt="Mountain scenery">
+                    <div class="card-body">
+                        <span class="tag">NATURE</span>
+                        <h3>Ella, Sri Lanka</h3>
+                        <p>Mountain views, tea country, and walking trails.</p>
+                        <a href="planner.html?destination=Ella" class="btn btn-primary">
+                            Plan a Trip →
+                        </a>
+                    </div>
+                </article>
+
+                <article class="destination-card"
+                         data-category="culture"
+                         data-search="kandy culture heritage temple lake">
+                    <img src="https://images.unsplash.com/photo-1546708973-b339540b5162?auto=format&fit=crop&w=900&q=80"
+                         alt="Cultural destination">
+                    <div class="card-body">
+                        <span class="tag">CULTURE</span>
+                        <h3>Kandy, Sri Lanka</h3>
+                        <p>Explore heritage, culture, and local traditions.</p>
+                        <a href="planner.html?destination=Kandy" class="btn btn-primary">
+                            Plan a Trip →
+                        </a>
+                    </div>
+                </article>
+
+                <article class="destination-card"
+                         data-category="nature"
+                         data-search="nuwara eliya gardens tea estates hill country">
+                    <img src="https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=900&q=80"
+                         alt="Green natural landscape">
+                    <div class="card-body">
+                        <span class="tag">NATURE</span>
+                        <h3>Nuwara Eliya, Sri Lanka</h3>
+                        <p>Cool weather, gardens, tea estates, and hills.</p>
+                        <a href="planner.html?destination=Nuwara%20Eliya" class="btn btn-primary">
+                            Plan a Trip →
+                        </a>
+                    </div>
+                </article>
+
+                <article class="destination-card"
+                         data-category="beach"
+                         data-search="unawatuna beach coast southern sri lanka">
+                    <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=900&q=80"
+                         alt="Beach holiday">
+                    <div class="card-body">
+                        <span class="tag">BEACH ESCAPE</span>
+                        <h3>Unawatuna, Sri Lanka</h3>
+                        <p>A relaxed coastal destination for a beach holiday.</p>
+                        <a href="planner.html?destination=Unawatuna" class="btn btn-primary">
+                            Plan a Trip →
+                        </a>
+                    </div>
+                </article>
+
+                <article class="destination-card"
+                         data-category="culture"
+                         data-search="sigiriya rock fortress history cultural triangle">
+                    <img src="https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?auto=format&fit=crop&w=900&q=80"
+                         alt="Historic landmark">
+                    <div class="card-body">
+                        <span class="tag">CULTURE</span>
+                        <h3>Sigiriya, Sri Lanka</h3>
+                        <p>Discover history and Sri Lanka's cultural heritage.</p>
+                        <a href="planner.html?destination=Sigiriya" class="btn btn-primary">
+                            Plan a Trip →
+                        </a>
+                    </div>
+                </article>
+            </div>
+
+            <p id="noDestinations" class="notice" hidden>
+                No destinations match your search. Try another keyword.
+            </p>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container copyright">
+        © <span id="year"></span> Travello |
+        <a href="index.html">Back to Home</a>
+    </div>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>
