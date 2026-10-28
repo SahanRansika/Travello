@@ -1,0 +1,1745 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Travello - Travel, Hotel and Transport Booking System. Advanced API Development practical project at IJSE.">
+
+    <title>Travello | Project Introduction</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <style>
+        :root {
+            --navy: #10243a;
+            --navy-dark: #091727;
+            --navy-light: #193c58;
+            --teal: #12b8ad;
+            --teal-light: #e4f8f6;
+            --background: #f3f7f8;
+            --white: #ffffff;
+            --text: #172c42;
+            --muted: #687b8e;
+            --border: #e0e8ed;
+            --orange: #f5a623;
+            --green: #267c5e;
+            --blue: #205982;
+            --gold: #936700;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        .container {
+            width: min(1200px, 90%);
+            margin: auto;
+        }
+
+        /* Navigation */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(9, 23, 39, 0.97);
+            color: white;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
+        }
+
+        .nav-inner {
+            min-height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: var(--teal);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 27px;
+        }
+
+        .nav-links a {
+            color: #d4e0eb;
+            font-size: 13px;
+            font-weight: 500;
+            transition: 0.25s;
+        }
+
+        .nav-links a:hover {
+            color: var(--teal);
+        }
+
+        .nav-contact {
+            background: var(--teal);
+            color: var(--navy-dark);
+            padding: 10px 17px;
+            border-radius: 7px;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        /* Welcome hero */
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 105px 0 95px;
+            color: white;
+            background:
+                radial-gradient(
+                    circle at 85% 20%,
+                    rgba(18,184,173,0.22),
+                    transparent 33%
+                ),
+                linear-gradient(135deg, #091727 0%, #102d47 65%, #174a60 100%);
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 360px;
+            height: 360px;
+            right: -120px;
+            bottom: -220px;
+            border: 1px solid rgba(18,184,173,0.35);
+            border-radius: 50%;
+            box-shadow:
+                0 0 0 35px rgba(18,184,173,0.04),
+                0 0 0 75px rgba(18,184,173,0.04);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 850px;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            padding: 7px 13px;
+            margin-bottom: 23px;
+            color: #69e6da;
+            background: rgba(18,184,173,0.12);
+            border: 1px solid rgba(18,184,173,0.35);
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .hero h1 {
+            font-size: clamp(39px, 6vw, 70px);
+            line-height: 1.12;
+            letter-spacing: -3px;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 span {
+            color: var(--teal);
+        }
+
+        .hero-description {
+            max-width: 690px;
+            color: #c2d2df;
+            font-size: 16px;
+            line-height: 1.95;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 13px;
+            margin-top: 31px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 13px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 800;
+            transition: 0.25s;
+        }
+
+        .button-primary {
+            color: var(--navy-dark);
+            background: var(--teal);
+        }
+
+        .button-primary:hover {
+            background: #51ded2;
+            transform: translateY(-2px);
+        }
+
+        .button-outline {
+            color: white;
+            border: 1px solid #506579;
+        }
+
+        .button-outline:hover {
+            border-color: var(--teal);
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 28px;
+            margin-top: 42px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255,255,255,0.13);
+        }
+
+        .meta-item strong {
+            display: block;
+            font-size: 14px;
+            color: white;
+        }
+
+        .meta-item span {
+            color: #aabdcf;
+            font-size: 12px;
+        }
+
+        /* Quick information cards */
+
+        .overview {
+            position: relative;
+            z-index: 2;
+            margin-top: -34px;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .overview-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 22px;
+            box-shadow: 0 9px 25px rgba(16,36,58,0.04);
+        }
+
+        .overview-card .number {
+            color: var(--teal);
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .overview-card h3 {
+            margin-top: 6px;
+            font-size: 14px;
+        }
+
+        .overview-card p {
+            margin-top: 5px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        /* General sections */
+
+        .section {
+            padding: 90px 0;
+        }
+
+        .section-heading {
+            max-width: 760px;
+            margin-bottom: 38px;
+        }
+
+        .section-label {
+            color: #079d94;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .section-heading h2 {
+            font-size: clamp(28px, 4vw, 39px);
+            line-height: 1.3;
+            letter-spacing: -1.3px;
+            margin: 10px 0 14px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        /* About */
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 35px;
+            align-items: start;
+        }
+
+        .about-text p {
+            color: #5e7083;
+            font-size: 14px;
+            line-height: 2;
+            margin-bottom: 16px;
+        }
+
+        .highlight {
+            color: var(--navy);
+            font-weight: 800;
+        }
+
+        .info-panel {
+            padding: 28px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+
+        .info-panel h3 {
+            font-size: 18px;
+            margin-bottom: 19px;
+        }
+
+        .info-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .info-icon {
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            background: var(--teal-light);
+            color: #087e76;
+            font-weight: 800;
+        }
+
+        .info-row strong {
+            display: block;
+            font-size: 12px;
+        }
+
+        .info-row span {
+            display: block;
+            color: var(--muted);
+            font-size: 12px;
+            overflow-wrap: anywhere;
+        }
+
+        /* Objectives */
+
+        .objectives {
+            background: #eaf1f4;
+        }
+
+        .objective-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 19px;
+        }
+
+        .objective-card {
+            padding: 27px;
+            background: white;
+            border: 1px solid #dce6eb;
+            border-radius: 12px;
+            transition: 0.25s;
+        }
+
+        .objective-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--teal);
+            box-shadow: 0 10px 25px rgba(16,36,58,0.06);
+        }
+
+        .objective-icon {
+            font-size: 25px;
+            margin-bottom: 15px;
+        }
+
+        .objective-card h3 {
+            font-size: 16px;
+            margin-bottom: 9px;
+        }
+
+        .objective-card p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.9;
+        }
+
+        /* Technology stack */
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .tech-card {
+            padding: 23px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: white;
+        }
+
+        .tech-card h3 {
+            font-size: 14px;
+            margin-bottom: 13px;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-tag {
+            padding: 6px 10px;
+            border-radius: 6px;
+            background: #edf3f6;
+            color: #32495e;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .tech-tag.highlight-tag {
+            background: var(--teal-light);
+            color: #087e76;
+        }
+
+        /* Architecture section */
+
+        .architecture {
+            background: #eaf0f2;
+        }
+
+        .architecture-intro {
+            margin-top: -18px;
+            margin-bottom: 28px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .architecture-board {
+            padding: 25px;
+            background: #f6f8f8;
+            border: 1px solid #d8e2e6;
+            border-radius: 16px;
+            box-shadow: 0 14px 40px rgba(16,36,58,0.06);
+        }
+
+        .architecture-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .architecture-title h3 {
+            font-size: 17px;
+        }
+
+        .architecture-title span {
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .architecture-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 250px;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .layers {
+            min-width: 0;
+        }
+
+        .layer {
+            padding: 16px;
+            border-radius: 10px;
+            color: white;
+        }
+
+        .layer-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .layer-heading h4 {
+            font-size: 15px;
+        }
+
+        .layer-heading span {
+            color: rgba(255,255,255,0.8);
+            font-size: 10px;
+            font-family: monospace;
+        }
+
+        .layer-frontend { background: #5c7080; }
+        .layer-controller { background: #11a5a5; }
+        .layer-service { background: #10283d; }
+        .layer-impl { background: #205982; }
+        .layer-repository { background: #287b5d; }
+        .layer-model { background: #906400; }
+
+        .layer-items {
+            display: grid;
+            gap: 8px;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+        }
+
+        .layer-frontend .layer-items {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .layer-repository .layer-items,
+        .layer-model .layer-items {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .layer-item {
+            min-width: 0;
+            min-height: 48px;
+            padding: 10px 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow-wrap: anywhere;
+            background: white;
+            color: #183047;
+            border-radius: 7px;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .layer-frontend .layer-item {
+            font-size: 10px;
+        }
+
+        .layer-arrow {
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--orange);
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .architecture-side {
+            display: grid;
+            gap: 15px;
+        }
+
+        .side-card {
+            padding: 18px;
+            border: 2px solid #11a5a5;
+            border-radius: 10px;
+            background: white;
+        }
+
+        .side-card h4 {
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .package {
+            font-family: monospace;
+            font-size: 10px;
+            color: #657b8f;
+            margin-bottom: 12px;
+            overflow-wrap: anywhere;
+        }
+
+        .side-card ul {
+            list-style: none;
+            display: grid;
+            gap: 7px;
+        }
+
+        .side-card li {
+            font-size: 11px;
+            color: #33495f;
+            overflow-wrap: anywhere;
+        }
+
+        .side-card li::before {
+            content: "• ";
+            color: var(--teal);
+            font-weight: 900;
+        }
+
+        .root-info {
+            margin-top: 19px;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .database {
+            padding: 17px;
+            margin-top: 12px;
+            text-align: center;
+            background: white;
+            border: 2px solid var(--navy);
+            border-radius: 10px;
+        }
+
+        .database h4 {
+            font-size: 20px;
+        }
+
+        .database p {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .architecture-note {
+            margin-top: 20px;
+            padding: 15px 18px;
+            border-left: 4px solid var(--teal);
+            border-radius: 5px;
+            background: white;
+            color: #53687b;
+            font-size: 12px;
+            line-height: 1.9;
+        }
+
+        /* API workflow */
+
+        .workflow {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .workflow-step {
+            position: relative;
+            padding: 22px 13px;
+            text-align: center;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: white;
+        }
+
+        .workflow-step .step-number {
+            display: grid;
+            place-items: center;
+            width: 32px;
+            height: 32px;
+            margin: 0 auto 12px;
+            border-radius: 50%;
+            background: var(--navy);
+            color: white;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .workflow-step h3 {
+            font-size: 13px;
+            margin-bottom: 7px;
+        }
+
+        .workflow-step p {
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.8;
+        }
+
+        /* Developer support */
+
+        .support {
+            padding: 75px 0;
+            background: var(--navy);
+            color: white;
+        }
+
+        .support-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .support .section-label {
+            color: #58ded2;
+        }
+
+        .support h2 {
+            font-size: clamp(27px, 4vw, 38px);
+            line-height: 1.35;
+            margin: 10px 0 15px;
+        }
+
+        .support-description {
+            color: #b8c9d8;
+            font-size: 13px;
+            line-height: 2;
+        }
+
+        .contact-panel {
+            padding: 27px;
+            border: 1px solid #344b61;
+            border-radius: 13px;
+            background: #132b42;
+        }
+
+        .contact-panel h3 {
+            margin-bottom: 20px;
+            font-size: 17px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            margin-top: 16px;
+        }
+
+        .contact-item .contact-icon {
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 9px;
+            background: rgba(18,184,173,0.15);
+            color: #64e6da;
+            font-size: 17px;
+        }
+
+        .contact-item small {
+            display: block;
+            color: #9eb3c6;
+            font-size: 11px;
+        }
+
+        .contact-item a,
+        .contact-item strong {
+            color: white;
+            font-size: 12px;
+            overflow-wrap: anywhere;
+        }
+
+        .contact-item a:hover {
+            color: var(--teal);
+        }
+
+        /* Footer */
+
+        footer {
+            padding: 25px 0;
+            background: var(--navy-dark);
+            color: white;
+        }
+
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .footer-inner p {
+            color: #9eb0c2;
+            font-size: 11px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 17px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #c6d3df;
+            font-size: 11px;
+        }
+
+        .footer-links a:hover {
+            color: var(--teal);
+        }
+
+        /* Responsive */
+
+        @media (max-width: 1000px) {
+            .nav-links {
+                gap: 15px;
+            }
+
+            .nav-links a {
+                font-size: 11px;
+            }
+
+            .overview-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .architecture-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .architecture-side {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .root-info,
+            .database {
+                grid-column: 1 / -1;
+            }
+
+            .tech-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                width: 92%;
+            }
+
+            .nav-inner {
+                min-height: 70px;
+                flex-wrap: wrap;
+                padding: 15px 0;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            .nav-contact {
+                padding: 8px 11px;
+                font-size: 11px;
+            }
+
+            .nav-links {
+                order: 3;
+                width: 100%;
+                overflow-x: auto;
+                padding-bottom: 4px;
+                gap: 22px;
+            }
+
+            .nav-links a {
+                white-space: nowrap;
+                font-size: 12px;
+            }
+
+            .hero {
+                padding: 75px 0 70px;
+            }
+
+            .hero h1 {
+                letter-spacing: -1.5px;
+            }
+
+            .hero-description {
+                font-size: 14px;
+            }
+
+            .hero-meta {
+                gap: 20px;
+            }
+
+            .overview-grid {
+                gap: 10px;
+            }
+
+            .overview-card {
+                padding: 16px;
+            }
+
+            .overview-card .number {
+                font-size: 22px;
+            }
+
+            .section {
+                padding: 65px 0;
+            }
+
+            .about-grid,
+            .objective-grid,
+            .tech-grid,
+            .support-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .architecture-board {
+                padding: 12px;
+            }
+
+            .architecture-title {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .layer {
+                padding: 12px;
+            }
+
+            .layer-heading h4 {
+                font-size: 13px;
+            }
+
+            .layer-heading span {
+                font-size: 9px;
+            }
+
+            .layer-items,
+            .layer-frontend .layer-items,
+            .layer-repository .layer-items,
+            .layer-model .layer-items {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .layer-item {
+                min-height: 42px;
+                font-size: 10px;
+            }
+
+            .architecture-side {
+                grid-template-columns: 1fr;
+            }
+
+            .root-info,
+            .database {
+                grid-column: auto;
+            }
+
+            .workflow {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .workflow-step:last-child {
+                grid-column: 1 / -1;
+            }
+
+            .support {
+                padding: 60px 0;
+            }
+
+            .footer-inner {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .overview-grid,
+            .workflow {
+                grid-template-columns: 1fr;
+            }
+
+            .workflow-step:last-child {
+                grid-column: auto;
+            }
+
+            .hero-buttons .button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header class="navbar">
+        <div class="container nav-inner">
+
+            <a href="#home" class="logo">
+                Travel<span>lo.</span>
+            </a>
+
+            <nav class="nav-links" aria-label="Main navigation">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#objectives">Objectives</a>
+                <a href="#technologies">Technologies</a>
+                <a href="#architecture">Project Structure</a>
+            </nav>
+
+            <a href="#support" class="nav-contact">Developer Contact ↗</a>
+
+        </div>
+    </header>
+
+    <main>
+
+        <!-- Welcome Section -->
+        <section class="hero" id="home">
+            <div class="container">
+                <div class="hero-content">
+
+                    <span class="eyebrow">
+                        IJSE · Advanced API Development
+                    </span>
+
+                    <h1>
+                        Welcome to the<br>
+                        <span>Travello Project.</span>
+                    </h1>
+
+                    <p class="hero-description">
+                        Your journey to smarter travel planning starts here.
+                        Travello is a travel planning and booking system concept
+                        designed to bring destinations, hotel reservations,
+                        transport services, and travel packages together in
+                        one convenient platform.
+                    </p>
+
+                    <div class="hero-buttons">
+                        <a href="#about" class="button button-primary">
+                            Explore the Project →
+                        </a>
+
+                        <a href="#architecture" class="button button-outline">
+                            View Project Structure
+                        </a>
+                    </div>
+
+                    <div class="hero-meta">
+                        <div class="meta-item">
+                            <strong>Academic Project</strong>
+                            <span>IJSE Campus Practical</span>
+                        </div>
+
+                        <div class="meta-item">
+                            <strong>Advanced API Development</strong>
+                            <span>Module</span>
+                        </div>
+
+                        <div class="meta-item">
+                            <strong>Layered Architecture</strong>
+                            <span>Spring Boot Backend</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Overview Cards -->
+        <section class="overview">
+            <div class="container overview-grid">
+
+                <article class="overview-card">
+                    <div class="number">01</div>
+                    <h3>Travel Planning</h3>
+                    <p>Explore destinations and travel packages.</p>
+                </article>
+
+                <article class="overview-card">
+                    <div class="number">02</div>
+                    <h3>Hotel Reservations</h3>
+                    <p>Organize accommodation and stays.</p>
+                </article>
+
+                <article class="overview-card">
+                    <div class="number">03</div>
+                    <h3>Transport Services</h3>
+                    <p>Plan convenient transportation.</p>
+                </article>
+
+                <article class="overview-card">
+                    <div class="number">04</div>
+                    <h3>Booking Management</h3>
+                    <p>Manage travel-related reservations.</p>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- About Project -->
+        <section class="section" id="about">
+            <div class="container">
+
+                <div class="section-heading">
+                    <span class="section-label">About the Project</span>
+                    <h2>A Smarter Way to Plan Your Journey</h2>
+                    <p>
+                        An academic software development project focused on
+                        designing a travel planning platform and applying
+                        modern backend development concepts.
+                    </p>
+                </div>
+
+                <div class="about-grid">
+
+                    <div class="about-text">
+                        <p>
+                            <span class="highlight">Travello</span> is a web-based
+                            travel planning and booking system developed as a
+                            practical project for the
+                            <span class="highlight">
+                                Advanced API Development
+                            </span>
+                            module at the Institute of Java and Software
+                            Engineering (IJSE).
+                        </p>
+
+                        <p>
+                            The project aims to provide a centralized platform
+                            where users can explore countries and destinations,
+                            discover hotels and dining options, review travel
+                            packages, arrange transport, and manage bookings.
+                        </p>
+
+                        <p>
+                            The frontend is built using HTML, CSS, and JavaScript.
+                            The backend follows a layered architecture using
+                            Spring Boot, with separate controllers, service
+                            interfaces, service implementations, repositories,
+                            and model entities. MySQL is used as the relational
+                            database.
+                        </p>
+
+                        <p>
+                            This project provides an opportunity to practice
+                            REST API development, application layering,
+                            database integration, authentication concepts,
+                            and maintainable software design.
+                        </p>
+                    </div>
+
+                    <aside class="info-panel">
+                        <h3>Project Information</h3>
+
+                        <div class="info-list">
+
+                            <div class="info-row">
+                                <div class="info-icon">P</div>
+                                <div>
+                                    <strong>Project Name</strong>
+                                    <span>Travello – Travel Planning System</span>
+                                </div>
+                            </div>
+
+                            <div class="info-row">
+                                <div class="info-icon">I</div>
+                                <div>
+                                    <strong>Institute</strong>
+                                    <span>
+                                        Institute of Java and Software Engineering
+                                        (IJSE)
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="info-row">
+                                <div class="info-icon">M</div>
+                                <div>
+                                    <strong>Module</strong>
+                                    <span>Advanced API Development</span>
+                                </div>
+                            </div>
+
+                            <div class="info-row">
+                                <div class="info-icon">A</div>
+                                <div>
+                                    <strong>Application Type</strong>
+                                    <span>Web-Based Application</span>
+                                </div>
+                            </div>
+
+                            <div class="info-row">
+                                <div class="info-icon">D</div>
+                                <div>
+                                    <strong>Developer</strong>
+                                    <span>Sahan Wickramaarachchi</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </aside>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Objectives -->
+        <section class="section objectives" id="objectives">
+            <div class="container">
+
+                <div class="section-heading">
+                    <span class="section-label">Project Objectives</span>
+                    <h2>What Travello Is Designed to Achieve</h2>
+                    <p>
+                        The main objectives are to organize travel-related
+                        information, simplify booking workflows, and demonstrate
+                        structured API development.
+                    </p>
+                </div>
+
+                <div class="objective-grid">
+
+                    <article class="objective-card">
+                        <div class="objective-icon">🌍</div>
+                        <h3>Destination Discovery</h3>
+                        <p>
+                            Organize countries, destinations, and travel
+                            information to help users explore places of interest.
+                        </p>
+                    </article>
+
+                    <article class="objective-card">
+                        <div class="objective-icon">🏨</div>
+                        <h3>Hotel & Dining Information</h3>
+                        <p>
+                            Maintain structured information about hotels,
+                            accommodation, and dining options.
+                        </p>
+                    </article>
+
+                    <article class="objective-card">
+                        <div class="objective-icon">🚘</div>
+                        <h3>Transport Planning</h3>
+                        <p>
+                            Support transport-related information and
+                            travel arrangements within the platform.
+                        </p>
+                    </article>
+
+                    <article class="objective-card">
+                        <div class="objective-icon">🧳</div>
+                        <h3>Travel Packages</h3>
+                        <p>
+                            Organize travel packages so users can discover
+                            suitable trip options.
+                        </p>
+                    </article>
+
+                    <article class="objective-card">
+                        <div class="objective-icon">📅</div>
+                        <h3>Booking Management</h3>
+                        <p>
+                            Structure booking records and provide a foundation
+                            for reservation management.
+                        </p>
+                    </article>
+
+                    <article class="objective-card">
+                        <div class="objective-icon">🔐</div>
+                        <h3>API & Access Control</h3>
+                        <p>
+                            Practice API authentication, authorization concepts,
+                            and controlled access to application endpoints.
+                        </p>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Technologies -->
+        <section class="section" id="technologies">
+            <div class="container">
+
+                <div class="section-heading">
+                    <span class="section-label">Technology Stack</span>
+                    <h2>Technologies Behind Travello</h2>
+                    <p>
+                        A frontend and backend stack designed to demonstrate
+                        API development and layered application architecture.
+                    </p>
+                </div>
+
+                <div class="tech-grid">
+
+                    <article class="tech-card">
+                        <h3>Frontend</h3>
+                        <div class="tech-tags">
+                            <span class="tech-tag highlight-tag">HTML5</span>
+                            <span class="tech-tag highlight-tag">CSS3</span>
+                            <span class="tech-tag highlight-tag">JavaScript</span>
+                        </div>
+                    </article>
+
+                    <article class="tech-card">
+                        <h3>Backend</h3>
+                        <div class="tech-tags">
+                            <span class="tech-tag highlight-tag">Java</span>
+                            <span class="tech-tag highlight-tag">Spring Boot</span>
+                            <span class="tech-tag">REST API</span>
+                        </div>
+                    </article>
+
+                    <article class="tech-card">
+                        <h3>Persistence</h3>
+                        <div class="tech-tags">
+                            <span class="tech-tag highlight-tag">MySQL</span>
+                            <span class="tech-tag">Spring Data JPA</span>
+                            <span class="tech-tag">Hibernate</span>
+                        </div>
+                    </article>
+
+                    <article class="tech-card">
+                        <h3>Security Concepts</h3>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Spring Security</span>
+                            <span class="tech-tag">JWT</span>
+                            <span class="tech-tag">Role-Based Access</span>
+                        </div>
+                    </article>
+
+                    <article class="tech-card">
+                        <h3>Architecture</h3>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Controller</span>
+                            <span class="tech-tag">Service</span>
+                            <span class="tech-tag">ServiceImpl</span>
+                            <span class="tech-tag">Repository</span>
+                            <span class="tech-tag">Model</span>
+                        </div>
+                    </article>
+
+                    <article class="tech-card">
+                        <h3>Development Tools</h3>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Git</span>
+                            <span class="tech-tag">GitHub</span>
+                            <span class="tech-tag">Maven</span>
+                            <span class="tech-tag">Postman</span>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Structure -->
+        <section class="section architecture" id="architecture">
+            <div class="container">
+
+                <div class="section-heading">
+                    <span class="section-label">System Architecture</span>
+                    <h2>Travello Project Structure</h2>
+                    <p>
+                        A visual overview of the frontend, Spring Boot backend
+                        layers, supporting packages, and MySQL database.
+                    </p>
+                </div>
+
+                <p class="architecture-intro">
+                    Backend package: <strong>com.travel</strong>
+                    &nbsp; · &nbsp;
+                    Database: <strong>MySQL / travel_db</strong>
+                </p>
+
+                <div class="architecture-board">
+
+                    <div class="architecture-title">
+                        <h3>Application Architecture</h3>
+                        <span>Frontend → Backend → Database</span>
+                    </div>
+
+                    <div class="architecture-layout">
+
+                        <div class="layers">
+
+                            <!-- Frontend -->
+                            <div class="layer layer-frontend">
+                                <div class="layer-heading">
+                                    <h4>Frontend (Static)</h4>
+                                    <span>src/main/resources/static</span>
+                                </div>
+
+                                <div class="layer-items">
+                                    <div class="layer-item">index.html</div>
+                                    <div class="layer-item">planner.html</div>
+                                    <div class="layer-item">destination.html</div>
+                                    <div class="layer-item">bookings.html</div>
+                                    <div class="layer-item">admin.html</div>
+                                    <div class="layer-item">css/style.css</div>
+                                    <div class="layer-item">js/app.js</div>
+                                </div>
+                            </div>
+
+                            <div class="layer-arrow">↓</div>
+
+                            <!-- Controller -->
+                            <div class="layer layer-controller">
+                                <div class="layer-heading">
+                                    <h4>Controller Layer</h4>
+                                    <span>com.travel.controller · HTTP</span>
+                                </div>
+
+                                <div class="layer-items">
+                                    <div class="layer-item">AuthController</div>
+                                    <div class="layer-item">PublicController</div>
+                                    <div class="layer-item">BookingController</div>
+                                    <div class="layer-item">AdminController</div>
+                                    <div class="layer-item">ChatController</div>
+                                </div>
+                            </div>
+
+                            <div class="layer-arrow">↓</div>
+
+                            <!-- Service -->
+                            <div class="layer layer-service">
+                                <div class="layer-heading">
+                                    <h4>Service Layer (Interfaces)</h4>
+                                    <span>com.travel.service</span>
+                                </div>
+
+                                <div class="layer-items">
+                                    <div class="layer-item">AuthService</div>
+                                    <div class="layer-item">CatalogService</div>
+                                    <div class="layer-item">BookingService</div>
+                                    <div class="layer-item">AdminService</div>
+                                    <div class="layer-item">ChatService</div>
+                                </div>
+                            </div>
+
+                            <div class="layer-arrow">↓</div>
+
+                            <!-- Service Implementation -->
+                            <div class="layer layer-impl">
+                                <div class="layer-heading">
+                                    <h4>ServiceImpl (Business Logic)</h4>
+                                    <span>com.travel.service.impl</span>
+                                </div>
+
+                                <div class="layer-items">
+                                    <div class="layer-item">AuthServiceImpl</div>
+                                    <div class="layer-item">CatalogServiceImpl</div>
+                                    <div class="layer-item">BookingServiceImpl</div>
+                                    <div class="layer-item">AdminServiceImpl</div>
+                                    <div class="layer-item">ChatServiceImpl</div>
+                                </div>
+                            </div>
+
+                            <div class="layer-arrow">↓</div>
+
+                            <!-- Repository -->
+                            <div class="layer layer-repository">
+                                <div class="layer-heading">
+                                    <h4>Repository Layer (Spring Data JPA)</h4>
+                                    <span>com.travel.repository</span>
+                                </div>
+
+                                <div class="layer-items">
+                                    <div class="layer-item">UserRepository</div>
+                                    <div class="layer-item">CountryRepository</div>
+                                    <div class="layer-item">DestinationRepository</div>
+                                    <div class="layer-item">HotelRepository</div>
+                                    <div class="layer-item">TransportRepository</div>
+                                    <div class="layer-item">DiningRepository</div>
+                                    <div class="layer-item">TravelPackageRepository</div>
+                                    <div class="layer-item">BookingRepository</div>
+                                </div>
+                            </div>
+
+                            <div class="layer-arrow">↓</div>
+
+                            <!-- Model -->
+                            <div class="layer layer-model">
+                                <div class="layer-heading">
+                                    <h4>Model Layer (JPA Entities)</h4>
+                                    <span>com.travel.model</span>
+                                </div>
+
+                                <div class="layer-items">
+                                    <div class="layer-item">User</div>
+                                    <div class="layer-item">Country</div>
+                                    <div class="layer-item">Destination</div>
+                                    <div class="layer-item">Hotel</div>
+                                    <div class="layer-item">Transport</div>
+                                    <div class="layer-item">Dining</div>
+                                    <div class="layer-item">TravelPackage</div>
+                                    <div class="layer-item">Booking</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Supporting packages -->
+                        <aside class="architecture-side">
+
+                            <div class="side-card">
+                                <h4>Security</h4>
+                                <p class="package">com.travel.security</p>
+
+                                <ul>
+                                    <li>JwtUtil</li>
+                                    <li>JwtFilter</li>
+                                    <li>SecurityConfig</li>
+                                    <li>Authentication & authorization</li>
+                                </ul>
+                            </div>
+
+                            <div class="side-card">
+                                <h4>DTO (Records / Objects)</h4>
+                                <p class="package">com.travel.dto</p>
+
+                                <ul>
+                                    <li>RegisterRequest, LoginRequest</li>
+                                    <li>GoogleOAuth, AuthResponse</li>
+                                    <li>BookingRequest, CardRequest</li>
+                                    <li>ChatRequest, ChatResponse</li>
+                                </ul>
+                            </div>
+
+                            <div class="side-card">
+                                <h4>Config / Utility</h4>
+                                <p class="package">com.travel.config · .util</p>
+
+                                <ul>
+                                    <li>DataSeeder</li>
+                                    <li>Constants</li>
+                                    <li>Application configuration</li>
+                                </ul>
+                            </div>
+
+                            <div class="root-info">
+                                Root configuration files
+                                <br>
+                                TravelApplication.java
+                                <br>
+                                pom.xml
+                                <br>
+                                application.properties
+                            </div>
+
+                            <div class="database">
+                                <h4>MySQL</h4>
+                                <p>travel_db</p>
+                                <p>Relational Database</p>
+                            </div>
+
+                        </aside>
+
+                    </div>
+
+                    <div class="architecture-note">
+                        <strong>How it works:</strong>
+                        Controllers receive HTTP requests and return responses.
+                        Service interfaces define operations, ServiceImpl
+                        implements business logic, repositories access
+                        persisted data, and model entities represent database
+                        records. DTOs carry request and response data, while
+                        security and configuration packages support the
+                        application.
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- API Workflow -->
+        <section class="section">
+            <div class="container">
+
+                <div class="section-heading">
+                    <span class="section-label">Backend Workflow</span>
+                    <h2>Understanding the Layered Architecture</h2>
+                    <p>
+                        The backend separates HTTP handling, business logic,
+                        and data access to support maintainability and testing.
+                    </p>
+                </div>
+
+                <div class="workflow">
+
+                    <article class="workflow-step">
+                        <div class="step-number">01</div>
+                        <h3>Controller</h3>
+                        <p>Receives API requests and handles HTTP responses.</p>
+                    </article>
+
+                    <article class="workflow-step">
+                        <div class="step-number">02</div>
+                        <h3>Service</h3>
+                        <p>Defines the business operations and contracts.</p>
+                    </article>
+
+                    <article class="workflow-step">
+                        <div class="step-number">03</div>
+                        <h3>ServiceImpl</h3>
+                        <p>Implements business rules and application logic.</p>
+                    </article>
+
+                    <article class="workflow-step">
+                        <div class="step-number">04</div>
+                        <h3>Repository</h3>
+                        <p>Performs database operations through Spring Data JPA.</p>
+                    </article>
+
+                    <article class="workflow-step">
+                        <div class="step-number">05</div>
+                        <h3>MySQL</h3>
+                        <p>Stores and retrieves relational application data.</p>
+                    </article>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Developer Support -->
+        <section class="support" id="support">
+            <div class="container support-grid">
+
+                <div>
+                    <span class="section-label">Developer & Support</span>
+
+                    <h2>
+                        Built with Curiosity.<br>
+                        Designed for Better Journeys.
+                    </h2>
+
+                    <p class="support-description">
+                        Thank you for visiting the Travello project page.
+                        This project represents practical learning in
+                        Advanced API Development at IJSE, with a focus on
+                        structured backend development, API design, and
+                        database integration.
+                        <br><br>
+                        For project-related inquiries, you can use the
+                        contact information provided here.
+                    </p>
+                </div>
+
+                <div class="contact-panel">
+                    <h3>Project Developer</h3>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">👤</div>
+                        <div>
+                            <small>Developer Name</small>
+                            <strong>Sahan Wickramaarachchi</strong>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">✉</div>
+                        <div>
+                            <small>Email Address</small>
+                            <a href="mailto:sahanransika07@gmail.com">
+                                sahanransika07@gmail.com
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">☎</div>
+                        <div>
+                            <small>Contact Number</small>
+                            <a href="tel:0773377494">0773377494</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">🎓</div>
+                        <div>
+                            <small>Academic Module</small>
+                            <strong>Advanced API Development · IJSE</strong>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-inner">
+
+            <a href="#home" class="logo">
+                Travel<span>lo.</span>
+            </a>
+
+            <p>
+                © <span id="currentYear"></span> Travello Project.
+                Developed for IJSE academic practical work.
+            </p>
+
+            <div class="footer-links">
+                <a href="#about">About</a>
+                <a href="#architecture">Architecture</a>
+                <a href="#support">Contact</a>
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        // Automatically update the footer year
+        document.getElementById("currentYear").textContent =
+            new Date().getFullYear();
+    </script>
+
+</body>
+</html>
