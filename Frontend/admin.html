@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Travello</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="container nav-content">
+        <a href="index.html" class="logo">Travel<span>lo.</span></a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="planner.html">Trip Planner</a>
+            <a href="destination.html">Destinations</a>
+            <a href="bookings.html">My Bookings</a>
+            <a href="admin.html" class="active">Admin</a>
+        </nav>
+        <a href="bookings.html" class="btn btn-primary">View Requests ↗</a>
+    </div>
+</header>
+
+<main>
+    <section class="page-hero">
+        <div class="container">
+            <span class="badge">PROJECT OVERVIEW</span>
+            <h1>Admin <span>Dashboard.</span></h1>
+            <p>View and manage locally saved Travello demo requests.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="dashboard-header">
+                <div>
+                    <span class="section-label">OVERVIEW</span>
+                    <h2>Travello Control Centre</h2>
+                    <p>This is a frontend demo without secure admin authentication.</p>
+                </div>
+
+                <button class="btn btn-primary" id="refreshAdmin">
+                    Refresh Data ↻
+                </button>
+            </div>
+
+            <div class="grid-3 dashboard-stats">
+                <div class="card">
+                    <p>All Requests</p>
+                    <h2 id="adminTotal">0</h2>
+                </div>
+
+                <div class="card">
+                    <p>Trip Plans</p>
+                    <h2 id="adminTrips">0</h2>
+                </div>
+
+                <div class="card">
+                    <p>Hotel Preferences</p>
+                    <h2 id="adminHotels">0</h2>
+                </div>
+            </div>
+
+            <div class="section-heading booking-heading">
+                <div>
+                    <span class="section-label">DEMO RECORDS</span>
+                    <h2>Recent Requests</h2>
+                </div>
+
+                <button class="btn btn-secondary" id="clearBookings">
+                    Clear Demo Data
+                </button>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Reference</th>
+                            <th>Customer</th>
+                            <th>Destination</th>
+                            <th>Travel Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminTable">
+                        <tr>
+                            <td colspan="6">No demo requests available.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <section class="project-structure">
+                <span class="section-label">PROJECT INFORMATION</span>
+                <h2>Project Structure</h2>
+
+                <div class="structure-box">
+                    <pre>Travello/
+├── index.html
+├── planner.html
+├── destination.html
+├── bookings.html
+├── admin.html
+├── css/
+│   └── style.css
+└── js/
+    └── app.js</pre>
+                </div>
+            </section>
+
+            <div class="notice">
+                For production, implement Spring Boot REST APIs, MySQL
+                persistence, authentication, authorization, and server-side
+                validation. This frontend dashboard is not access-controlled.
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container copyright">
+        © <span id="year"></span> Travello |
+        <a href="index.html">Back to Home</a>
+    </div>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>
