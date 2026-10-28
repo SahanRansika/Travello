@@ -1,271 +1,1400 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Travello</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Travello travel, hotel and transport planning project">
+  <title>Travello | Explore Beyond Boundaries</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ---------- design tokens ---------- */
+    :root {
+      --navy: #10243a;
+      --dark: #091727;
+      --teal: #12b8ad;
+      --pale: #e4f8f6;
+      --bg: #f3f7f8;
+      --text: #172c42;
+      --muted: #687b8e;
+      --line: #e0e8ed;
+      --white: #fff;
+    }
+
+    /* ---------- reset & base ---------- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 85px;
+    }
+
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.65;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .container {
+      width: min(1160px, 92%);
+      margin: auto;
+    }
+
+    .section {
+      padding: 76px 0;
+    }
+
+    /* ---------- typography & shared ---------- */
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: #078f87;
+    }
+
+    .head {
+      max-width: 700px;
+      margin-bottom: 30px;
+    }
+
+    .head h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      letter-spacing: -1px;
+      line-height: 1.25;
+      margin: 9px 0 12px;
+    }
+
+    .head p,
+    .muted {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    /* ---------- buttons ---------- */
+    .btn {
+      border: 0;
+      border-radius: 9px;
+      padding: 12px 17px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      font-size: 12px;
+      font-weight: 800;
+      transition: .2s;
+    }
+
+    .primary {
+      background: var(--teal);
+      color: var(--dark);
+    }
+
+    .primary:hover {
+      background: #4cddd2;
+      transform: translateY(-1px);
+    }
+
+    .outline {
+      border: 1px solid #52677b;
+      color: white;
+      background: transparent;
+    }
+
+    .darkbtn {
+      background: var(--navy);
+      color: white;
+    }
+
+    .btn:hover {
+      filter: brightness(1.05);
+    }
+
+    /* ---------- navbar ---------- */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(9, 23, 39, .97);
+      color: white;
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .logo {
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .logo span {
+      color: var(--teal);
+    }
+
+    .links {
+      display: flex;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .links a {
+      font-size: 12px;
+      color: #d2deea;
+    }
+
+    .links a:hover {
+      color: var(--teal);
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .menu {
+      display: none;
+      background: none;
+      color: white;
+      border: 1px solid #52677b;
+      border-radius: 7px;
+      padding: 8px;
+    }
+
+    /* ---------- hero ---------- */
+    .hero {
+      padding: 92px 0 110px;
+      color: white;
+      background:
+        linear-gradient(90deg, rgba(7, 20, 35, .94), rgba(8, 25, 43, .72) 55%, rgba(8, 25, 43, .2)),
+        url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1900&q=85') center/cover;
+    }
+
+    .hero-content {
+      max-width: 720px;
+    }
+
+    .pill {
+      display: inline-block;
+      border: 1px solid #237f7b;
+      background: #113c46;
+      color: #6ce7dc;
+      border-radius: 30px;
+      padding: 7px 13px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 6vw, 72px);
+      line-height: 1.08;
+      letter-spacing: -2.8px;
+      margin: 23px 0 18px;
+    }
+
+    .hero h1 span {
+      color: var(--teal);
+    }
+
+    .hero p {
+      max-width: 630px;
+      color: #d0dce6;
+      font-size: 15px;
+      line-height: 1.95;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 27px;
+    }
+
+    .stats {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 35px;
+      padding-top: 22px;
+      border-top: 1px solid #ffffff30;
+    }
+
+    .stats strong {
+      display: block;
+      font-size: 16px;
+    }
+
+    .stats small {
+      color: #c2d0dc;
+      font-size: 11px;
+    }
+
+    /* ---------- booking panel ---------- */
+    .booking {
+      position: relative;
+      margin-top: -48px;
+      z-index: 2;
+    }
+
+    .panel {
+      padding: 23px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      box-shadow: 0 14px 40px #10243a12;
+    }
+
+    .tabs,
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .tab,
+    .filter {
+      border: 0;
+      border-radius: 8px;
+      background: #edf3f6;
+      color: #526779;
+      padding: 10px 15px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .tab.active,
+    .filter.active {
+      background: var(--navy);
+      color: var(--teal);
+    }
+
+    .formgrid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr .9fr auto;
+      gap: 12px;
+      align-items: end;
+    }
+
+    .field label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: .6px;
+      font-weight: 800;
+      color: #63768a;
+      margin-bottom: 7px;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      min-width: 0;
+      border: 1px solid #dce5ea;
+      border-radius: 8px;
+      padding: 12px 10px;
+      background: #fff;
+      color: var(--text);
+      outline: none;
+      font-size: 12px;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px #12b8ad1a;
+    }
+
+    .message {
+      margin-top: 14px;
+      background: var(--pale);
+      color: #087e76;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 12px;
+    }
+
+    /* ---------- quick / services / cards ---------- */
+    .quick,
+    .services,
+    .cards {
+      display: grid;
+      gap: 18px;
+    }
+
+    .quick {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .quick article,
+    .service,
+    .travelcard,
+    .tech {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      padding: 22px;
+    }
+
+    .quick .ico,
+    .service .ico {
+      font-size: 25px;
+    }
+
+    .quick h3 {
+      font-size: 13px;
+      margin: 7px 0 3px;
+    }
+
+    .quick p {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .services {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .service {
+      padding: 27px;
+      transition: .2s;
+    }
+
+    .service:hover,
+    .travelcard:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px #10243a10;
+      border-color: var(--teal);
+    }
+
+    .service .ico {
+      display: grid;
+      place-items: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: var(--pale);
+      margin-bottom: 15px;
+    }
+
+    .service h3 {
+      font-size: 17px;
+      margin-bottom: 8px;
+    }
+
+    .service p {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 15px;
+    }
+
+    .textlink {
+      color: #078f87;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .soft {
+      background: #eaf1f4;
+    }
+
+    .cards {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .travelcard {
+      padding: 0;
+      overflow: hidden;
+      transition: .2s;
+    }
+
+    .travelcard img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .cardbody {
+      padding: 17px;
+    }
+
+    .cardtop,
+    .cardbottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .tag {
+      background: var(--pale);
+      color: #07877f;
+      border-radius: 30px;
+      padding: 5px 9px;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .travelcard h3 {
+      font-size: 16px;
+      margin: 10px 0 5px;
+    }
+
+    .travelcard p {
+      font-size: 12px;
+      color: var(--muted);
+      min-height: 40px;
+    }
+
+    .cardbottom {
+      border-top: 1px solid #edf1f4;
+      padding-top: 13px;
+      margin-top: 15px;
+    }
+
+    .price {
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .price small {
+      display: block;
+      font-size: 10px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* ---------- split / about ---------- */
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 38px;
+      align-items: center;
+    }
+
+    .split img {
+      width: 100%;
+      height: 360px;
+      object-fit: cover;
+      border-radius: 16px;
+    }
+
+    .features {
+      display: grid;
+      gap: 14px;
+      margin: 22px 0;
+    }
+
+    .feature {
+      display: flex;
+      gap: 11px;
+    }
+
+    .check {
+      background: var(--pale);
+      color: #07877f;
+      width: 29px;
+      height: 29px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .feature h3 {
+      font-size: 13px;
+    }
+
+    .feature p {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ---------- CTA / footer ---------- */
+    .cta {
+      padding: 40px;
+      background: linear-gradient(120deg, var(--navy), #17465e);
+      color: white;
+      border-radius: 17px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .cta h2 {
+      font-size: clamp(25px, 4vw, 35px);
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .cta p {
+      font-size: 12px;
+      color: #c2d2df;
+      max-width: 560px;
+    }
+
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 34px 0 18px;
+    }
+
+    .footgrid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 30px;
+      padding-bottom: 25px;
+    }
+
+    .footgrid p,
+    .footgrid a {
+      display: block;
+      font-size: 11px;
+      color: #b8c7d5;
+      margin: 7px 0;
+    }
+
+    .footgrid h3 {
+      font-size: 13px;
+      margin: 10px 0;
+    }
+
+    .footabout {
+      max-width: 370px;
+      line-height: 1.9;
+    }
+
+    .footbottom {
+      border-top: 1px solid #26394b;
+      padding-top: 15px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      color: #91a4b6;
+      font-size: 10px;
+    }
+
+    /* ---------- modal & toast ---------- */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: #04101dc9;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modalbox {
+      background: white;
+      border-radius: 15px;
+      width: min(510px, 100%);
+      max-height: 90vh;
+      overflow: auto;
+    }
+
+    .modalhead {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .modalhead h2 {
+      font-size: 18px;
+    }
+
+    .close {
+      border: 0;
+      background: #edf3f6;
+      border-radius: 7px;
+      width: 31px;
+      height: 31px;
+      font-size: 20px;
+    }
+
+    .modalbody {
+      padding: 22px;
+    }
+
+    .modalform {
+      display: grid;
+      gap: 13px;
+    }
+
+    .note {
+      font-size: 10px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 120;
+      display: none;
+      max-width: calc(100% - 36px);
+      padding: 13px 17px;
+      background: var(--navy);
+      color: white;
+      border-left: 4px solid var(--teal);
+      border-radius: 8px;
+      box-shadow: 0 10px 25px #10243a22;
+      font-size: 12px;
+    }
+
+    .toast.show {
+      display: block;
+    }
+
+    /* ---------- responsive ---------- */
+    @media (max-width: 980px) {
+      .formgrid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .quick {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .links {
+        gap: 12px;
+      }
+
+      .links a {
+        font-size: 11px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav {
+        flex-wrap: wrap;
+        padding: 12px 0;
+      }
+
+      .menu {
+        display: block;
+      }
+
+      .nav-actions {
+        margin-left: auto;
+      }
+
+      .nav-actions .outline {
+        display: none;
+      }
+
+      .links {
+        display: none;
+        order: 5;
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 8px 0;
+      }
+
+      .links.open {
+        display: flex;
+      }
+
+      .hero {
+        padding: 65px 0 85px;
+      }
+
+      .hero h1 {
+        letter-spacing: -1.4px;
+      }
+
+      .hero p {
+        font-size: 13px;
+      }
+
+      .section {
+        padding: 60px 0;
+      }
+
+      .formgrid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .formgrid .field:first-child {
+        grid-column: 1 / -1;
+      }
+
+      .services,
+      .cards,
+      .split {
+        grid-template-columns: 1fr;
+      }
+
+      .split img {
+        height: 270px;
+      }
+
+      .cta {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 27px;
+      }
+
+      .footgrid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footabout {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .hero h1 {
+        font-size: 41px;
+      }
+
+      .hero-buttons .btn {
+        width: 100%;
+      }
+
+      .stats {
+        gap: 17px;
+      }
+
+      .formgrid {
+        grid-template-columns: 1fr;
+      }
+
+      .formgrid .field:first-child {
+        grid-column: auto;
+      }
+
+      .quick {
+        gap: 9px;
+      }
+
+      .quick article {
+        padding: 14px;
+      }
+
+      .tabs {
+        gap: 5px;
+      }
+
+      .tab {
+        padding: 9px 11px;
+      }
+
+      .footgrid {
+        grid-template-columns: 1fr;
+      }
+
+      .footabout {
+        grid-column: auto;
+      }
+
+      .footbottom {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<header class="navbar">
-    <div class="container nav-content">
-        <a href="index.html" class="logo">Travel<span>lo.</span></a>
-
-        <nav>
-            <a href="index.html" class="active">Home</a>
-            <a href="planner.html">Trip Planner</a>
-            <a href="destination.html">Destinations</a>
-            <a href="bookings.html">My Bookings</a>
-            <a href="admin.html">Admin</a>
-        </nav>
-
-        <a href="planner.html" class="btn btn-primary">Plan a Trip ↗</a>
+  <!-- ======================== NAVBAR ======================== -->
+  <header class="navbar">
+    <div class="container nav">
+      <a class="logo" href="#home">Travel<span>lo.</span></a>
+      <button class="menu" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      <nav class="links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#destinations">Destinations</a>
+        <a href="#hotels">Hotels</a>
+        <a href="#transport">Transport</a>
+        <a href="#about">About</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="btn outline" data-account="login">Log in</button>
+        <button class="btn primary" data-account="signup">Get Started ↗</button>
+      </div>
     </div>
-</header>
+  </header>
 
-<main>
-    <section class="hero">
-        <div class="container hero-content">
-            <span class="badge">YOUR JOURNEY STARTS HERE</span>
-
-            <h1>
-                Welcome to<br>
-                <span>Travello.</span>
-            </h1>
-
-            <p>
-                Discover amazing destinations, explore comfortable hotels,
-                and find transport options for your next adventure.
-                Everything you need to plan your journey starts here.
-            </p>
-
-            <div class="hero-buttons">
-                <a href="planner.html" class="btn btn-primary">
-                    Start Planning →
-                </a>
-
-                <a href="destination.html" class="btn btn-outline">
-                    Explore Destinations
-                </a>
-            </div>
-
-            <div class="hero-stats">
-                <div>
-                    <h3>01</h3>
-                    <p>Choose a destination</p>
-                </div>
-                <div>
-                    <h3>02</h3>
-                    <p>Plan your stay</p>
-                </div>
-                <div>
-                    <h3>03</h3>
-                    <p>Enjoy your journey</p>
-                </div>
-            </div>
+  <main>
+    <!-- ======================== HERO ======================== -->
+    <section class="hero" id="home">
+      <div class="container hero-content">
+        <span class="pill">✦ Your journey starts here</span>
+        <h1>Explore the World.<br><span>Travel Your Way.</span></h1>
+        <p>Discover inspiring destinations, find your ideal stay, and explore transport options — all from one place. Travello helps you plan the journey and focus on the moments that matter.</p>
+        <div class="hero-buttons">
+          <a class="btn primary" href="#booking">Plan your trip →</a>
+          <a class="btn outline" href="#destinations">Explore destinations</a>
         </div>
+        <div class="stats">
+          <div><strong>Destinations</strong><small>Places to explore</small></div>
+          <div><strong>Hotels &amp; stays</strong><small>Find your comfortable stay</small></div>
+          <div><strong>Travel options</strong><small>Plan trips your way</small></div>
+        </div>
+      </div>
     </section>
 
-    <section class="section">
-        <div class="container">
-            <div class="section-heading">
-                <span class="section-label">OUR SERVICES</span>
-                <h2>Everything for your next trip</h2>
-                <p>Plan your journey with our travel services.</p>
+    <!-- ======================== BOOKING PANEL ======================== -->
+    <section class="booking">
+      <div class="container">
+        <div class="panel" id="booking">
+          <div class="tabs">
+            <button class="tab active" data-type="travel">✈ Travel</button>
+            <button class="tab" data-type="hotel">⌂ Hotels</button>
+            <button class="tab" data-type="transport">🚘 Transport</button>
+          </div>
+          <form class="formgrid" id="searchForm">
+            <div class="field">
+              <label id="placeLabel" for="place">DESTINATION</label>
+              <input id="place" placeholder="Where do you want to go?" required>
             </div>
-
-            <div class="grid-3">
-                <div class="card">
-                    <div class="card-icon">⌖</div>
-                    <h3>Destinations</h3>
-                    <p>
-                        Discover beautiful destinations and find inspiration
-                        for your next adventure.
-                    </p>
-                    <a href="destination.html" class="text-link">
-                        Explore places →
-                    </a>
-                </div>
-
-                <div class="card">
-                    <div class="card-icon">⌂</div>
-                    <h3>Hotel Booking</h3>
-                    <p>
-                        Explore accommodation options for comfortable and
-                        memorable stays.
-                    </p>
-                    <a href="planner.html#hotels" class="text-link">
-                        Explore hotels →
-                    </a>
-                </div>
-
-                <div class="card">
-                    <div class="card-icon">↗</div>
-                    <h3>Transport Booking</h3>
-                    <p>
-                        Choose suitable transport options for individuals,
-                        families, and groups.
-                    </p>
-                    <a href="planner.html#transport" class="text-link">
-                        Explore transport →
-                    </a>
-                </div>
+            <div class="field">
+              <label id="dateLabel" for="date">TRAVEL DATE</label>
+              <input id="date" type="date" required>
             </div>
+            <div class="field">
+              <label id="peopleLabel" for="people">TRAVELERS</label>
+              <select id="people">
+                <option>1 person</option>
+                <option selected>2 people</option>
+                <option>3 people</option>
+                <option>4 people</option>
+                <option>5+ people</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="budget">BUDGET</label>
+              <select id="budget">
+                <option>Any budget</option>
+                <option>Budget friendly</option>
+                <option>Comfort</option>
+                <option>Premium</option>
+              </select>
+            </div>
+            <button class="btn primary" type="submit">Search →</button>
+          </form>
+          <div class="message" id="searchMessage" role="status" hidden></div>
         </div>
+      </div>
     </section>
 
-    <section class="section section-light">
-        <div class="container">
-            <div class="section-heading">
-                <span class="section-label">TRAVEL INSPIRATION</span>
-                <h2>Explore beautiful places</h2>
-                <p>Start planning your next Sri Lankan adventure.</p>
-            </div>
-
-            <div class="grid-3">
-                <div class="destination-card">
-                    <img
-                        src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=900&q=80"
-                        alt="Beautiful beach"
-                    >
-                    <div class="card-body">
-                        <span class="tag">BEACH</span>
-                        <h3>Mirissa</h3>
-                        <p>Beautiful beaches and relaxing coastal scenery.</p>
-                        <a href="planner.html?destination=Mirissa" class="text-link">
-                            Plan a trip →
-                        </a>
-                    </div>
-                </div>
-
-                <div class="destination-card">
-                    <img
-                        src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=80"
-                        alt="Mountain scenery"
-                    >
-                    <div class="card-body">
-                        <span class="tag">NATURE</span>
-                        <h3>Ella</h3>
-                        <p>Mountains, waterfalls, and beautiful hiking trails.</p>
-                        <a href="planner.html?destination=Ella" class="text-link">
-                            Plan a trip →
-                        </a>
-                    </div>
-                </div>
-
-                <div class="destination-card">
-                    <img
-                        src="https://images.unsplash.com/photo-1546708973-b339540b5162?auto=format&fit=crop&w=900&q=80"
-                        alt="Historic destination"
-                    >
-                    <div class="card-body">
-                        <span class="tag">CULTURE</span>
-                        <h3>Kandy</h3>
-                        <p>Discover heritage, culture, and local experiences.</p>
-                        <a href="planner.html?destination=Kandy" class="text-link">
-                            Plan a trip →
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- ======================== QUICK FEATURES ======================== -->
+    <section class="section" style="padding-bottom:35px">
+      <div class="container quick">
+        <article><div class="ico">🧭</div><h3>Plan with confidence</h3><p>Keep key travel details organized.</p></article>
+        <article><div class="ico">🏨</div><h3>Find your stay</h3><p>Explore accommodation options.</p></article>
+        <article><div class="ico">🚗</div><h3>Move with ease</h3><p>Consider transport for your journey.</p></article>
+        <article><div class="ico">💚</div><h3>One travel hub</h3><p>Bring travel planning together.</p></article>
+      </div>
     </section>
 
-    <section class="section">
-        <div class="container">
-            <div class="cta-panel">
-                <div>
-                    <span class="section-label">YOUR NEXT ADVENTURE</span>
-                    <h2>Make a plan. Make memories.</h2>
-                    <p>Start creating your travel plan with Travello.</p>
-                </div>
-                <a href="planner.html" class="btn btn-primary">
-                    Plan My Trip →
-                </a>
-            </div>
+    <!-- ======================== SERVICES ======================== -->
+    <section class="section" id="services">
+      <div class="container">
+        <div class="head">
+          <span class="eyebrow">What we offer</span>
+          <h2>Everything you need to travel</h2>
+          <p>Start with the service you need. Travello brings together travel discovery, accommodation, transport, and trip planning in a clear experience.</p>
         </div>
+        <div class="services">
+          <article class="service">
+            <div class="ico">✈️</div>
+            <h3>Travel planning</h3>
+            <p>Explore places, compare ideas, and begin organizing your next adventure.</p>
+            <a class="textlink" href="#destinations">Explore destinations →</a>
+          </article>
+          <article class="service">
+            <div class="ico">🏨</div>
+            <h3>Hotel reservations</h3>
+            <p>Browse example stays and choose accommodation that suits your plans.</p>
+            <a class="textlink" href="#hotels">Discover stays →</a>
+          </article>
+          <article class="service">
+            <div class="ico">🚘</div>
+            <h3>Transport options</h3>
+            <p>Explore sample transport choices for transfers, city rides, and road journeys.</p>
+            <a class="textlink" href="#transport">View transport →</a>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <section class="section section-light">
-        <div class="container about-grid">
-            <div>
-                <span class="section-label">ABOUT THIS PROJECT</span>
-                <h2>Travello Travel & Booking System</h2>
-
-                <p>
-                    Travello is a travel planning and booking website
-                    developed as a practical project for the Advanced API
-                    Development module at IJSE.
-                </p>
-
-                <p>
-                    The project demonstrates a frontend interface for
-                    destination discovery, trip planning, hotel selection,
-                    transport preferences, and booking management.
-                </p>
-
-                <p>
-                    This version is a static frontend. Backend API
-                    integration and permanent database storage can be
-                    implemented separately.
-                </p>
-            </div>
-
-            <div class="contact-card">
-                <h3>Developer Information</h3>
-
-                <p><strong>Name:</strong> Sahan Wickramaarachchi</p>
-
-                <p>
-                    <strong>Email:</strong>
-                    <a href="mailto:sahanransika07@gmail.com">
-                        sahanransika07@gmail.com
-                    </a>
-                </p>
-
-                <p>
-                    <strong>Contact:</strong>
-                    <a href="tel:0773377494">0773377494</a>
-                </p>
-
-                <p><strong>Institute:</strong> IJSE</p>
-
-                <p><strong>Module:</strong> Advanced API Development</p>
-            </div>
+    <!-- ======================== DESTINATIONS ======================== -->
+    <section class="section soft" id="destinations">
+      <div class="container">
+        <div class="head">
+          <span class="eyebrow">Find your next escape</span>
+          <h2>Popular destinations</h2>
+          <p>Get inspired by coastlines, mountain scenery, and places full of culture. Filter the sample destinations to explore the interface.</p>
         </div>
+        <div class="filters" id="filters">
+          <button class="filter active" data-filter="all">All places</button>
+          <button class="filter" data-filter="beach">Beaches</button>
+          <button class="filter" data-filter="nature">Nature</button>
+          <button class="filter" data-filter="culture">Culture</button>
+        </div>
+        <div class="cards" id="destinationCards">
+          <article class="travelcard" data-category="beach">
+            <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=900&q=80" alt="Tropical ocean beach" loading="lazy">
+            <div class="cardbody">
+              <div class="cardtop"><span class="tag">Beach escape</span><span>★ Coastal</span></div>
+              <h3>Mirissa, Sri Lanka</h3>
+              <p>Relax by the ocean, discover coastal cafés, and enjoy a laid-back beach atmosphere.</p>
+              <div class="cardbottom">
+                <span class="price">Explore<small>Destination guide</small></span>
+                <button class="btn darkbtn" data-plan="Mirissa, Sri Lanka">Plan trip</button>
+              </div>
+            </div>
+          </article>
+          <article class="travelcard" data-category="nature">
+            <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=80" alt="Mountain landscape" loading="lazy">
+            <div class="cardbody">
+              <div class="cardtop"><span class="tag">Nature</span><span>★ Scenic</span></div>
+              <h3>Ella, Sri Lanka</h3>
+              <p>Enjoy misty hills, green landscapes, hiking routes, and beautiful viewpoints.</p>
+              <div class="cardbottom">
+                <span class="price">Explore<small>Destination guide</small></span>
+                <button class="btn darkbtn" data-plan="Ella, Sri Lanka">Plan trip</button>
+              </div>
+            </div>
+          </article>
+          <article class="travelcard" data-category="culture">
+            <img src="https://images.unsplash.com/photo-1546708973-b339540b5162?auto=format&fit=crop&w=900&q=80" alt="Cultural travel destination" loading="lazy">
+            <div class="cardbody">
+              <div class="cardtop"><span class="tag">Culture</span><span>★ Heritage</span></div>
+              <h3>Kandy, Sri Lanka</h3>
+              <p>Discover heritage, local traditions, gardens, and the character of the hill capital.</p>
+              <div class="cardbottom">
+                <span class="price">Explore<small>Destination guide</small></span>
+                <button class="btn darkbtn" data-plan="Kandy, Sri Lanka">Plan trip</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
     </section>
-</main>
 
-<footer class="footer">
-    <div class="container footer-content">
+    <!-- ======================== HOTELS ======================== -->
+    <section class="section" id="hotels">
+      <div class="container">
+        <div class="head">
+          <span class="eyebrow">Stay your way</span>
+          <h2>Featured stays</h2>
+          <p>Sample accommodation cards to help develop the hotel section. Live prices and availability need a real booking API.</p>
+        </div>
+        <div class="cards">
+          <article class="travelcard">
+            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=80" alt="Resort swimming pool" loading="lazy">
+            <div class="cardbody">
+              <span class="tag">Resort</span>
+              <h3>Oceanview Resort</h3>
+              <p>A sample resort concept for a relaxing getaway.</p>
+              <div class="cardbottom">
+                <span class="price">Coastal stay<small>Example listing</small></span>
+                <button class="btn darkbtn" data-request="hotel" data-item="Oceanview Resort">View stay</button>
+              </div>
+            </div>
+          </article>
+          <article class="travelcard">
+            <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=900&q=80" alt="Modern hotel room" loading="lazy">
+            <div class="cardbody">
+              <span class="tag">City hotel</span>
+              <h3>City Comfort Hotel</h3>
+              <p>A sample city stay with convenient access to local attractions.</p>
+              <div class="cardbottom">
+                <span class="price">City stay<small>Example listing</small></span>
+                <button class="btn darkbtn" data-request="hotel" data-item="City Comfort Hotel">View stay</button>
+              </div>
+            </div>
+          </article>
+          <article class="travelcard">
+            <img src="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?auto=format&fit=crop&w=900&q=80" alt="Nature retreat accommodation" loading="lazy">
+            <div class="cardbody">
+              <span class="tag">Nature retreat</span>
+              <h3>Highland Retreat</h3>
+              <p>A sample retreat concept for a quiet stay surrounded by nature.</p>
+              <div class="cardbottom">
+                <span class="price">Nature stay<small>Example listing</small></span>
+                <button class="btn darkbtn" data-request="hotel" data-item="Highland Retreat">View stay</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================== TRANSPORT ======================== -->
+    <section class="section soft" id="transport">
+      <div class="container">
+        <div class="head">
+          <span class="eyebrow">Getting there</span>
+          <h2>Transport for your journey</h2>
+          <p>Choose a sample transport category. Real operators, routes, fares, and schedules require backend integration.</p>
+        </div>
+        <div class="services">
+          <article class="service">
+            <div class="ico">🚙</div>
+            <h3>Private car</h3>
+            <p>Flexible trips, private transfers, and journeys with family or friends.</p>
+            <button class="btn darkbtn" data-request="transport" data-item="Private car">Choose transport →</button>
+          </article>
+          <article class="service">
+            <div class="ico">🚐</div>
+            <h3>Van / group travel</h3>
+            <p>A sample option for group outings, tours, and shared travel plans.</p>
+            <button class="btn darkbtn" data-request="transport" data-item="Van / group travel">Choose transport →</button>
+          </article>
+          <article class="service">
+            <div class="ico">🚕</div>
+            <h3>City transfer</h3>
+            <p>Plan a local ride or airport transfer as part of your trip.</p>
+            <button class="btn darkbtn" data-request="transport" data-item="City transfer">Choose transport →</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================== ABOUT ======================== -->
+    <section class="section" id="about">
+      <div class="container split">
+        <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1200&q=85" alt="Travel planning map and passport" loading="lazy">
         <div>
-            <a href="index.html" class="logo">Travel<span>lo.</span></a>
-            <p>Explore more. Plan better. Travel your way.</p>
+          <span class="eyebrow">About Travello</span>
+          <h2 style="font-size:clamp(28px,4vw,40px);line-height:1.2;margin:10px 0 13px">A simpler way to bring travel plans together.</h2>
+          <p class="muted">Travello is a travel, hotel, and transport booking website concept designed to help users explore destinations, browse accommodation, consider transport options, and organize travel requests through one consistent interface.</p>
+          <div class="features">
+            <div class="feature">
+              <div class="check">✓</div>
+              <div><h3>Clear travel discovery</h3><p class="muted">Browse destination cards and filter places by travel style.</p></div>
+            </div>
+            <div class="feature">
+              <div class="check">✓</div>
+              <div><h3>Connected booking journey</h3><p class="muted">Start with a destination, date, traveler count, and preference.</p></div>
+            </div>
+            <div class="feature">
+              <div class="check">✓</div>
+              <div><h3>Responsive experience</h3><p class="muted">Designed for desktop, tablet, and mobile screens.</p></div>
+            </div>
+          </div>
+          <a class="btn primary" href="#booking">Start planning →</a>
         </div>
+      </div>
+    </section>
 
+    <!-- ======================== CTA ======================== -->
+    <section class="section" style="padding-top:0">
+      <div class="container cta">
         <div>
-            <h4>Quick Links</h4>
-            <a href="planner.html">Trip Planner</a>
-            <a href="destination.html">Destinations</a>
-            <a href="bookings.html">My Bookings</a>
+          <h2>Your next adventure awaits.</h2>
+          <p>Choose a destination, select a date, and start building your travel plan with Travello.</p>
         </div>
+        <a class="btn primary" href="#booking">Plan my trip →</a>
+      </div>
+    </section>
+  </main>
 
+  <!-- ======================== FOOTER ======================== -->
+  <footer id="contact">
+    <div class="container">
+      <div class="footgrid">
         <div>
-            <h4>Contact</h4>
-            <a href="mailto:sahanransika07@gmail.com">
-                sahanransika07@gmail.com
-            </a>
-            <a href="tel:0773377494">0773377494</a>
+          <a class="logo" href="#home">Travel<span>lo.</span></a>
+          <p class="footabout">Explore destinations, accommodation ideas, and transport options with a travel planning experience designed to keep your journey organized.</p>
         </div>
+        <div>
+          <h3>Explore</h3>
+          <a href="#destinations">Destinations</a>
+          <a href="#hotels">Hotels &amp; stays</a>
+          <a href="#transport">Transport</a>
+          <a href="#about">About Travello</a>
+        </div>
+        <div>
+          <h3>Developer support</h3>
+          <p>Sahan Wickramaarachchi</p>
+          <a href="mailto:sahanransika07@gmail.com">sahanransika07@gmail.com</a>
+          <a href="tel:0773377494">0773377494</a>
+          <p>IJSE · Advanced API Development</p>
+        </div>
+      </div>
+      <div class="footbottom">
+        <span>© <span id="year"></span> Travello. Academic practical project.</span>
+        <span>Travel · Hotels · Transport</span>
+      </div>
     </div>
+  </footer>
 
-    <div class="container copyright">
-        © <span id="year"></span> Travello |
-        IJSE Advanced API Development
+  <!-- ======================== REQUEST MODAL ======================== -->
+  <div class="modal" id="requestModal" role="dialog" aria-modal="true" aria-labelledby="requestTitle">
+    <div class="modalbox">
+      <div class="modalhead">
+        <h2 id="requestTitle">Start a travel request</h2>
+        <button class="close" data-close aria-label="Close">×</button>
+      </div>
+      <div class="modalbody">
+        <form class="modalform" id="requestForm">
+          <div class="field">
+            <label for="requestType">REQUEST TYPE</label>
+            <select id="requestType">
+              <option value="travel">Travel plan</option>
+              <option value="hotel">Hotel stay</option>
+              <option value="transport">Transport</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="requestItem">SELECTED OPTION</label>
+            <input id="requestItem" required>
+          </div>
+          <div class="field">
+            <label for="requestName">YOUR NAME</label>
+            <input id="requestName" required placeholder="Enter your name">
+          </div>
+          <div class="field">
+            <label for="requestEmail">EMAIL ADDRESS</label>
+            <input id="requestEmail" type="email" required placeholder="you@example.com">
+          </div>
+          <div class="field">
+            <label for="requestDate">TRAVEL DATE</label>
+            <input id="requestDate" type="date" required>
+          </div>
+          <div class="field">
+            <label for="requestNotes">NOTES (OPTIONAL)</label>
+            <textarea id="requestNotes" rows="3" placeholder="Any preferences?"></textarea>
+          </div>
+          <button class="btn primary" type="submit">Save demo request →</button>
+          <p class="note">Demo mode only: the request is saved in this browser using localStorage. It is not sent to a provider and does not confirm a real reservation.</p>
+        </form>
+      </div>
     </div>
-</footer>
+  </div>
 
-<script src="js/app.js"></script>
+  <!-- ======================== ACCOUNT MODAL ======================== -->
+  <div class="modal" id="accountModal" role="dialog" aria-modal="true" aria-labelledby="accountTitle">
+    <div class="modalbox">
+      <div class="modalhead">
+        <h2 id="accountTitle">Welcome to Travello</h2>
+        <button class="close" data-close aria-label="Close">×</button>
+      </div>
+      <div class="modalbody">
+        <form class="modalform" id="accountForm">
+          <div class="field">
+            <label for="accountName">YOUR NAME</label>
+            <input id="accountName" required placeholder="Enter your name">
+          </div>
+          <div class="field">
+            <label for="accountEmail">EMAIL ADDRESS</label>
+            <input id="accountEmail" type="email" required placeholder="you@example.com">
+          </div>
+          <button class="btn primary" type="submit">Continue in demo mode →</button>
+          <p class="note">This is not secure authentication. Connect a backend before using real accounts.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== TOAST ======================== -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (() => {
+      const $ = (s, r = document) => r.querySelector(s);
+      const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+      let type = 'travel';
+      let timer;
+
+      const settings = {
+        travel: { label: 'DESTINATION', placeholder: 'Where do you want to go?', date: 'TRAVEL DATE', people: 'TRAVELERS' },
+        hotel: { label: 'CITY OR HOTEL', placeholder: 'Enter city or hotel name', date: 'CHECK-IN DATE', people: 'GUESTS' },
+        transport: { label: 'PICK-UP LOCATION', placeholder: 'Enter pick-up location', date: 'JOURNEY DATE', people: 'PASSENGERS' }
+      };
+
+      function notify(text) {
+        const t = $('#toast');
+        t.textContent = text;
+        t.classList.add('show');
+        clearTimeout(timer);
+        timer = setTimeout(() => t.classList.remove('show'), 3600);
+      }
+
+      function open(id) {
+        $(id).classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function close(modal) {
+        modal.classList.remove('open');
+        if (!$('.modal.open')) document.body.style.overflow = '';
+      }
+
+      // ---------- date setup ----------
+      const today = new Date();
+      const localToday = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+      $('#year').textContent = today.getFullYear();
+      $('#date').min = localToday;
+      $('#requestDate').min = localToday;
+
+      // ---------- tabs ----------
+      $$('.tab').forEach(b => b.addEventListener('click', () => {
+        $$('.tab').forEach(x => x.classList.toggle('active', x === b));
+        type = b.dataset.type;
+        const s = settings[type];
+        $('#placeLabel').textContent = s.label;
+        $('#place').placeholder = s.placeholder;
+        $('#dateLabel').textContent = s.date;
+        $('#peopleLabel').textContent = s.people;
+        $('#searchMessage').hidden = true;
+      }));
+
+      // ---------- search form ----------
+      $('#searchForm').addEventListener('submit', e => {
+        e.preventDefault();
+        $('#searchMessage').textContent = `Search prepared: ${type} · ${$('#place').value.trim()} · ${$('#date').value} · ${$('#people').value} · ${$('#budget').value}. Live availability is not connected in this demo.`;
+        $('#searchMessage').hidden = false;
+      });
+
+      // ---------- destination filters ----------
+      $$('#filters .filter').forEach(b => b.addEventListener('click', () => {
+        $$('#filters .filter').forEach(x => x.classList.toggle('active', x === b));
+        const f = b.dataset.filter;
+        let count = 0;
+        $$('[data-category]', $('#destinationCards')).forEach(c => {
+          const show = f === 'all' || c.dataset.category === f;
+          c.hidden = !show;
+          if (show) count++;
+        });
+        let empty = $('.empty', $('#destinationCards'));
+        if (!count && !empty) {
+          empty = document.createElement('div');
+          empty.className = 'empty';
+          empty.textContent = 'No destinations match this filter yet.';
+          $('#destinationCards').appendChild(empty);
+        } else if (count && empty) {
+          empty.remove();
+        }
+      }));
+
+      // ---------- plan trip buttons ----------
+      $$('[data-plan]').forEach(b => b.addEventListener('click', () => {
+        $$('.tab').find(t => t.dataset.type === 'travel').click();
+        $('#place').value = b.dataset.plan;
+        $('#booking').scrollIntoView({ behavior: 'smooth' });
+        notify('Destination selected. Choose a date and search to continue.');
+      }));
+
+      // ---------- request buttons (hotel / transport) ----------
+      $$('[data-request]').forEach(b => b.addEventListener('click', () => {
+        $('#requestType').value = b.dataset.request;
+        $('#requestItem').value = b.dataset.item;
+        $('#requestDate').value = '';
+        open('#requestModal');
+      }));
+
+      // ---------- account buttons ----------
+      $$('[data-account]').forEach(b => b.addEventListener('click', () => {
+        $('#accountTitle').textContent = b.dataset.account === 'signup'
+          ? 'Create your Travello profile'
+          : 'Welcome back to Travello';
+        open('#accountModal');
+      }));
+
+      // ---------- close modals ----------
+      $$('[data-close]').forEach(b => b.addEventListener('click', () => close(b.closest('.modal'))));
+      $$('.modal').forEach(m => m.addEventListener('click', e => { if (e.target === m) close(m); }));
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') $$('.modal.open').forEach(close); });
+
+      // ---------- request form submit ----------
+      $('#requestForm').addEventListener('submit', e => {
+        e.preventDefault();
+        const request = {
+          id: 'TRV-' + Date.now(),
+          type: $('#requestType').value,
+          item: $('#requestItem').value.trim(),
+          name: $('#requestName').value.trim(),
+          email: $('#requestEmail').value.trim(),
+          date: $('#requestDate').value,
+          notes: $('#requestNotes').value.trim(),
+          createdAt: new Date().toISOString(),
+          status: 'Demo request - not confirmed'
+        };
+        try {
+          const old = JSON.parse(localStorage.getItem('travello_demo_requests') || '[]');
+          old.push(request);
+          localStorage.setItem('travello_demo_requests', JSON.stringify(old));
+          close($('#requestModal'));
+          $('#requestForm').reset();
+          notify(`Demo request ${request.id} saved in this browser. No real booking was made.`);
+        } catch (err) {
+          notify('Browser storage is unavailable; request was not saved.');
+        }
+      });
+
+      // ---------- account form submit ----------
+      $('#accountForm').addEventListener('submit', e => {
+        e.preventDefault();
+        const name = $('#accountName').value.trim();
+        close($('#accountModal'));
+        $('#accountForm').reset();
+        notify(`Hello ${name}! Authentication must be connected to a backend.`);
+      });
+
+      // ---------- mobile menu ----------
+      $('#menuToggle').addEventListener('click', () => {
+        const openNav = $('#navLinks').classList.toggle('open');
+        $('#menuToggle').setAttribute('aria-expanded', String(openNav));
+      });
+
+      $$('#navLinks a').forEach(a => a.addEventListener('click', () => {
+        $('#navLinks').classList.remove('open');
+        $('#menuToggle').setAttribute('aria-expanded', 'false');
+      }));
+    })();
+  </script>
 </body>
 </html>
