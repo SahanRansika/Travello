@@ -1,0 +1,230 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Planner | Travello</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="container nav-content">
+        <a href="index.html" class="logo">Travel<span>lo.</span></a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="planner.html" class="active">Trip Planner</a>
+            <a href="destination.html">Destinations</a>
+            <a href="bookings.html">My Bookings</a>
+            <a href="admin.html">Admin</a>
+        </nav>
+        <a href="#trip-form" class="btn btn-primary">Create Plan ↗</a>
+    </div>
+</header>
+
+<main>
+    <section class="page-hero">
+        <div class="container">
+            <span class="badge">PLAN YOUR JOURNEY</span>
+            <h1>Your trip, <span>your way.</span></h1>
+            <p>Choose your destination, travel date, hotel, and transport.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container narrow">
+            <div class="form-card" id="trip-form">
+                <span class="section-label">TRIP DETAILS</span>
+                <h2>Create a trip plan</h2>
+                <p>Enter your details to save a demo trip request.</p>
+
+                <form id="tripForm" class="form-grid">
+                    <label>
+                        Full Name
+                        <input type="text" name="name" required
+                               placeholder="Enter your name">
+                    </label>
+
+                    <label>
+                        Email Address
+                        <input type="email" name="email" required
+                               placeholder="you@example.com">
+                    </label>
+
+                    <label>
+                        Destination
+                        <input type="text" name="destination" required
+                               placeholder="e.g. Ella, Sri Lanka">
+                    </label>
+
+                    <label>
+                        Travel Date
+                        <input type="date" name="date" id="travelDate" required>
+                    </label>
+
+                    <label>
+                        Number of Travelers
+                        <select name="travelers">
+                            <option>1 person</option>
+                            <option selected>2 people</option>
+                            <option>3 people</option>
+                            <option>4 people</option>
+                            <option>5+ people</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        Budget
+                        <select name="budget">
+                            <option>Budget friendly</option>
+                            <option selected>Comfort</option>
+                            <option>Premium</option>
+                            <option>Flexible</option>
+                        </select>
+                    </label>
+
+                    <label id="hotels">
+                        Accommodation
+                        <select name="hotel">
+                            <option>Not required</option>
+                            <option>Hotel</option>
+                            <option>Resort</option>
+                            <option>Guest house</option>
+                            <option>Nature retreat</option>
+                        </select>
+                    </label>
+
+                    <label id="transport">
+                        Transport
+                        <select name="transport">
+                            <option>Not required</option>
+                            <option>Private car</option>
+                            <option>Van / group travel</option>
+                            <option>City transfer</option>
+                            <option>Public transport</option>
+                        </select>
+                    </label>
+
+                    <label class="full-width">
+                        Additional Notes
+                        <textarea name="notes" rows="4"
+                                  placeholder="Tell us about your travel preferences"></textarea>
+                    </label>
+
+                    <div class="full-width">
+                        <button type="submit" class="btn btn-primary">
+                            Save Trip Plan →
+                        </button>
+                        <a href="bookings.html" class="btn btn-secondary">
+                            View Bookings
+                        </a>
+                    </div>
+
+                    <p id="formMessage" class="full-width message"></p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-light">
+        <div class="container">
+            <div class="section-heading">
+                <span class="section-label">ACCOMMODATION</span>
+                <h2>Explore sample stays</h2>
+                <p>Example hotel cards for the static frontend.</p>
+            </div>
+
+            <div class="grid-3">
+                <div class="destination-card">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=80"
+                         alt="Resort swimming pool">
+                    <div class="card-body">
+                        <span class="tag">RESORT</span>
+                        <h3>Oceanview Resort</h3>
+                        <p>A sample resort for a relaxing coastal holiday.</p>
+                        <button class="btn btn-primary"
+                                data-hotel="Resort">Select Stay</button>
+                    </div>
+                </div>
+
+                <div class="destination-card">
+                    <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=900&q=80"
+                         alt="Hotel bedroom">
+                    <div class="card-body">
+                        <span class="tag">HOTEL</span>
+                        <h3>City Comfort Hotel</h3>
+                        <p>A sample city accommodation option.</p>
+                        <button class="btn btn-primary"
+                                data-hotel="Hotel">Select Stay</button>
+                    </div>
+                </div>
+
+                <div class="destination-card">
+                    <img src="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?auto=format&fit=crop&w=900&q=80"
+                         alt="Nature retreat">
+                    <div class="card-body">
+                        <span class="tag">NATURE</span>
+                        <h3>Highland Retreat</h3>
+                        <p>A sample stay surrounded by natural scenery.</p>
+                        <button class="btn btn-primary"
+                                data-hotel="Nature retreat">Select Stay</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-heading">
+                <span class="section-label">TRANSPORT</span>
+                <h2>Choose your transport</h2>
+                <p>Select a transport preference for your trip.</p>
+            </div>
+
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-icon">🚙</div>
+                    <h3>Private Car</h3>
+                    <p>Flexible travel for individuals and small groups.</p>
+                    <button class="btn btn-primary"
+                            data-transport="Private car">Choose</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🚐</div>
+                    <h3>Van / Group Travel</h3>
+                    <p>A sample option for families and group trips.</p>
+                    <button class="btn btn-primary"
+                            data-transport="Van / group travel">Choose</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🚕</div>
+                    <h3>City Transfer</h3>
+                    <p>Plan a local ride or transfer.</p>
+                    <button class="btn btn-primary"
+                            data-transport="City transfer">Choose</button>
+                </div>
+            </div>
+
+            <div class="notice">
+                These are sample frontend options. Live prices, availability,
+                and real bookings require backend API integration.
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container copyright">
+        © <span id="year"></span> Travello |
+        <a href="index.html">Back to Home</a>
+    </div>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>
+```
