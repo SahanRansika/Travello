@@ -1,7 +1,8 @@
+
 # Travello – Travel Booking System
 
 A web-based travel booking system designed to help users explore travel destinations, view hotels and transportation options, and submit travel booking requests. The system also provides an admin interface to manage travel catalogue information and monitor booking requests.
-
+<img width="1700" height="1100" alt="Travello drawio (1)" src="https://github.com/user-attachments/assets/664142bf-75d4-49fb-ad11-d0b2ed59c743" />
 ## Table of Contents
 
 - [About the Project](#about-the-project)
