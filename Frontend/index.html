@@ -1,1400 +1,389 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Travello travel, hotel and transport planning project">
-  <title>Travello | Explore Beyond Boundaries</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    /* ---------- design tokens ---------- */
-    :root {
-      --navy: #10243a;
-      --dark: #091727;
-      --teal: #12b8ad;
-      --pale: #e4f8f6;
-      --bg: #f3f7f8;
-      --text: #172c42;
-      --muted: #687b8e;
-      --line: #e0e8ed;
-      --white: #fff;
-    }
-
-    /* ---------- reset & base ---------- */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 85px;
-    }
-
-    body {
-      font-family: 'Inter', Arial, sans-serif;
-      color: var(--text);
-      background: var(--bg);
-      line-height: 1.65;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    button,
-    input,
-    select,
-    textarea {
-      font: inherit;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
-    .container {
-      width: min(1160px, 92%);
-      margin: auto;
-    }
-
-    .section {
-      padding: 76px 0;
-    }
-
-    /* ---------- typography & shared ---------- */
-    .eyebrow {
-      font-size: 11px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      font-weight: 800;
-      color: #078f87;
-    }
-
-    .head {
-      max-width: 700px;
-      margin-bottom: 30px;
-    }
-
-    .head h2 {
-      font-size: clamp(28px, 4vw, 40px);
-      letter-spacing: -1px;
-      line-height: 1.25;
-      margin: 9px 0 12px;
-    }
-
-    .head p,
-    .muted {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.9;
-    }
-
-    /* ---------- buttons ---------- */
-    .btn {
-      border: 0;
-      border-radius: 9px;
-      padding: 12px 17px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-      font-size: 12px;
-      font-weight: 800;
-      transition: .2s;
-    }
-
-    .primary {
-      background: var(--teal);
-      color: var(--dark);
-    }
-
-    .primary:hover {
-      background: #4cddd2;
-      transform: translateY(-1px);
-    }
-
-    .outline {
-      border: 1px solid #52677b;
-      color: white;
-      background: transparent;
-    }
-
-    .darkbtn {
-      background: var(--navy);
-      color: white;
-    }
-
-    .btn:hover {
-      filter: brightness(1.05);
-    }
-
-    /* ---------- navbar ---------- */
-    .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: rgba(9, 23, 39, .97);
-      color: white;
-    }
-
-    .nav {
-      min-height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 22px;
-    }
-
-    .logo {
-      font-size: 27px;
-      font-weight: 800;
-      letter-spacing: -1px;
-    }
-
-    .logo span {
-      color: var(--teal);
-    }
-
-    .links {
-      display: flex;
-      gap: 22px;
-      align-items: center;
-    }
-
-    .links a {
-      font-size: 12px;
-      color: #d2deea;
-    }
-
-    .links a:hover {
-      color: var(--teal);
-    }
-
-    .nav-actions {
-      display: flex;
-      gap: 8px;
-    }
-
-    .menu {
-      display: none;
-      background: none;
-      color: white;
-      border: 1px solid #52677b;
-      border-radius: 7px;
-      padding: 8px;
-    }
-
-    /* ---------- hero ---------- */
-    .hero {
-      padding: 92px 0 110px;
-      color: white;
-      background:
-        linear-gradient(90deg, rgba(7, 20, 35, .94), rgba(8, 25, 43, .72) 55%, rgba(8, 25, 43, .2)),
-        url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1900&q=85') center/cover;
-    }
-
-    .hero-content {
-      max-width: 720px;
-    }
-
-    .pill {
-      display: inline-block;
-      border: 1px solid #237f7b;
-      background: #113c46;
-      color: #6ce7dc;
-      border-radius: 30px;
-      padding: 7px 13px;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 1px;
-    }
-
-    .hero h1 {
-      font-size: clamp(42px, 6vw, 72px);
-      line-height: 1.08;
-      letter-spacing: -2.8px;
-      margin: 23px 0 18px;
-    }
-
-    .hero h1 span {
-      color: var(--teal);
-    }
-
-    .hero p {
-      max-width: 630px;
-      color: #d0dce6;
-      font-size: 15px;
-      line-height: 1.95;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 27px;
-    }
-
-    .stats {
-      display: flex;
-      gap: 30px;
-      flex-wrap: wrap;
-      margin-top: 35px;
-      padding-top: 22px;
-      border-top: 1px solid #ffffff30;
-    }
-
-    .stats strong {
-      display: block;
-      font-size: 16px;
-    }
-
-    .stats small {
-      color: #c2d0dc;
-      font-size: 11px;
-    }
-
-    /* ---------- booking panel ---------- */
-    .booking {
-      position: relative;
-      margin-top: -48px;
-      z-index: 2;
-    }
-
-    .panel {
-      padding: 23px;
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 15px;
-      box-shadow: 0 14px 40px #10243a12;
-    }
-
-    .tabs,
-    .filters {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-    }
-
-    .tab,
-    .filter {
-      border: 0;
-      border-radius: 8px;
-      background: #edf3f6;
-      color: #526779;
-      padding: 10px 15px;
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    .tab.active,
-    .filter.active {
-      background: var(--navy);
-      color: var(--teal);
-    }
-
-    .formgrid {
-      display: grid;
-      grid-template-columns: 1.4fr 1fr 1fr .9fr auto;
-      gap: 12px;
-      align-items: end;
-    }
-
-    .field label {
-      display: block;
-      font-size: 10px;
-      letter-spacing: .6px;
-      font-weight: 800;
-      color: #63768a;
-      margin-bottom: 7px;
-    }
-
-    .field input,
-    .field select,
-    .field textarea {
-      width: 100%;
-      min-width: 0;
-      border: 1px solid #dce5ea;
-      border-radius: 8px;
-      padding: 12px 10px;
-      background: #fff;
-      color: var(--text);
-      outline: none;
-      font-size: 12px;
-    }
-
-    .field input:focus,
-    .field select:focus,
-    .field textarea:focus {
-      border-color: var(--teal);
-      box-shadow: 0 0 0 3px #12b8ad1a;
-    }
-
-    .message {
-      margin-top: 14px;
-      background: var(--pale);
-      color: #087e76;
-      padding: 12px;
-      border-radius: 8px;
-      font-size: 12px;
-    }
-
-    /* ---------- quick / services / cards ---------- */
-    .quick,
-    .services,
-    .cards {
-      display: grid;
-      gap: 18px;
-    }
-
-    .quick {
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    .quick article,
-    .service,
-    .travelcard,
-    .tech {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 13px;
-      padding: 22px;
-    }
-
-    .quick .ico,
-    .service .ico {
-      font-size: 25px;
-    }
-
-    .quick h3 {
-      font-size: 13px;
-      margin: 7px 0 3px;
-    }
-
-    .quick p {
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    .services {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    .service {
-      padding: 27px;
-      transition: .2s;
-    }
-
-    .service:hover,
-    .travelcard:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 30px #10243a10;
-      border-color: var(--teal);
-    }
-
-    .service .ico {
-      display: grid;
-      place-items: center;
-      width: 52px;
-      height: 52px;
-      border-radius: 12px;
-      background: var(--pale);
-      margin-bottom: 15px;
-    }
-
-    .service h3 {
-      font-size: 17px;
-      margin-bottom: 8px;
-    }
-
-    .service p {
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.9;
-      margin-bottom: 15px;
-    }
-
-    .textlink {
-      color: #078f87;
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    .soft {
-      background: #eaf1f4;
-    }
-
-    .cards {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    .travelcard {
-      padding: 0;
-      overflow: hidden;
-      transition: .2s;
-    }
-
-    .travelcard img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-
-    .cardbody {
-      padding: 17px;
-    }
-
-    .cardtop,
-    .cardbottom {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .tag {
-      background: var(--pale);
-      color: #07877f;
-      border-radius: 30px;
-      padding: 5px 9px;
-      font-size: 10px;
-      font-weight: 800;
-    }
-
-    .travelcard h3 {
-      font-size: 16px;
-      margin: 10px 0 5px;
-    }
-
-    .travelcard p {
-      font-size: 12px;
-      color: var(--muted);
-      min-height: 40px;
-    }
-
-    .cardbottom {
-      border-top: 1px solid #edf1f4;
-      padding-top: 13px;
-      margin-top: 15px;
-    }
-
-    .price {
-      font-size: 14px;
-      font-weight: 800;
-    }
-
-    .price small {
-      display: block;
-      font-size: 10px;
-      color: var(--muted);
-      font-weight: 500;
-    }
-
-    /* ---------- split / about ---------- */
-    .split {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 38px;
-      align-items: center;
-    }
-
-    .split img {
-      width: 100%;
-      height: 360px;
-      object-fit: cover;
-      border-radius: 16px;
-    }
-
-    .features {
-      display: grid;
-      gap: 14px;
-      margin: 22px 0;
-    }
-
-    .feature {
-      display: flex;
-      gap: 11px;
-    }
-
-    .check {
-      background: var(--pale);
-      color: #07877f;
-      width: 29px;
-      height: 29px;
-      border-radius: 8px;
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-    }
-
-    .feature h3 {
-      font-size: 13px;
-    }
-
-    .feature p {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    /* ---------- CTA / footer ---------- */
-    .cta {
-      padding: 40px;
-      background: linear-gradient(120deg, var(--navy), #17465e);
-      color: white;
-      border-radius: 17px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-    }
-
-    .cta h2 {
-      font-size: clamp(25px, 4vw, 35px);
-      line-height: 1.3;
-      margin-bottom: 8px;
-    }
-
-    .cta p {
-      font-size: 12px;
-      color: #c2d2df;
-      max-width: 560px;
-    }
-
-    footer {
-      background: var(--dark);
-      color: white;
-      padding: 34px 0 18px;
-    }
-
-    .footgrid {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr 1fr;
-      gap: 30px;
-      padding-bottom: 25px;
-    }
-
-    .footgrid p,
-    .footgrid a {
-      display: block;
-      font-size: 11px;
-      color: #b8c7d5;
-      margin: 7px 0;
-    }
-
-    .footgrid h3 {
-      font-size: 13px;
-      margin: 10px 0;
-    }
-
-    .footabout {
-      max-width: 370px;
-      line-height: 1.9;
-    }
-
-    .footbottom {
-      border-top: 1px solid #26394b;
-      padding-top: 15px;
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 10px;
-      color: #91a4b6;
-      font-size: 10px;
-    }
-
-    /* ---------- modal & toast ---------- */
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 100;
-      background: #04101dc9;
-      align-items: center;
-      justify-content: center;
-      padding: 18px;
-    }
-
-    .modal.open {
-      display: flex;
-    }
-
-    .modalbox {
-      background: white;
-      border-radius: 15px;
-      width: min(510px, 100%);
-      max-height: 90vh;
-      overflow: auto;
-    }
-
-    .modalhead {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 22px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .modalhead h2 {
-      font-size: 18px;
-    }
-
-    .close {
-      border: 0;
-      background: #edf3f6;
-      border-radius: 7px;
-      width: 31px;
-      height: 31px;
-      font-size: 20px;
-    }
-
-    .modalbody {
-      padding: 22px;
-    }
-
-    .modalform {
-      display: grid;
-      gap: 13px;
-    }
-
-    .note {
-      font-size: 10px;
-      color: var(--muted);
-      line-height: 1.8;
-    }
-
-    .toast {
-      position: fixed;
-      right: 18px;
-      bottom: 18px;
-      z-index: 120;
-      display: none;
-      max-width: calc(100% - 36px);
-      padding: 13px 17px;
-      background: var(--navy);
-      color: white;
-      border-left: 4px solid var(--teal);
-      border-radius: 8px;
-      box-shadow: 0 10px 25px #10243a22;
-      font-size: 12px;
-    }
-
-    .toast.show {
-      display: block;
-    }
-
-    /* ---------- responsive ---------- */
-    @media (max-width: 980px) {
-      .formgrid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-
-      .quick {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .cards {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .links {
-        gap: 12px;
-      }
-
-      .links a {
-        font-size: 11px;
-      }
-    }
-
-    @media (max-width: 720px) {
-      .nav {
-        flex-wrap: wrap;
-        padding: 12px 0;
-      }
-
-      .menu {
-        display: block;
-      }
-
-      .nav-actions {
-        margin-left: auto;
-      }
-
-      .nav-actions .outline {
-        display: none;
-      }
-
-      .links {
-        display: none;
-        order: 5;
-        width: 100%;
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 8px 0;
-      }
-
-      .links.open {
-        display: flex;
-      }
-
-      .hero {
-        padding: 65px 0 85px;
-      }
-
-      .hero h1 {
-        letter-spacing: -1.4px;
-      }
-
-      .hero p {
-        font-size: 13px;
-      }
-
-      .section {
-        padding: 60px 0;
-      }
-
-      .formgrid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .formgrid .field:first-child {
-        grid-column: 1 / -1;
-      }
-
-      .services,
-      .cards,
-      .split {
-        grid-template-columns: 1fr;
-      }
-
-      .split img {
-        height: 270px;
-      }
-
-      .cta {
-        align-items: flex-start;
-        flex-direction: column;
-        padding: 27px;
-      }
-
-      .footgrid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .footabout {
-        grid-column: 1 / -1;
-      }
-    }
-
-    @media (max-width: 420px) {
-      .hero h1 {
-        font-size: 41px;
-      }
-
-      .hero-buttons .btn {
-        width: 100%;
-      }
-
-      .stats {
-        gap: 17px;
-      }
-
-      .formgrid {
-        grid-template-columns: 1fr;
-      }
-
-      .formgrid .field:first-child {
-        grid-column: auto;
-      }
-
-      .quick {
-        gap: 9px;
-      }
-
-      .quick article {
-        padding: 14px;
-      }
-
-      .tabs {
-        gap: 5px;
-      }
-
-      .tab {
-        padding: 9px 11px;
-      }
-
-      .footgrid {
-        grid-template-columns: 1fr;
-      }
-
-      .footabout {
-        grid-column: auto;
-      }
-
-      .footbottom {
-        flex-direction: column;
-      }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Travello travel, hotel and transport planning project">
+<title>Travello | Explore Beyond Boundaries</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#10243a;--dark:#091727;--teal:#12b8ad;--pale:#e4f8f6;--bg:#f3f7f8;--text:#172c42;--muted:#687b8e;--line:#e0e8ed;--white:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:85px}
+body{font-family:'Inter',Arial,sans-serif;color:var(--text);background:var(--bg);line-height:1.65}
+a{text-decoration:none;color:inherit}
+button,input,select{font:inherit}button{cursor:pointer}
+.container{width:min(1160px,92%);margin:auto}
+.section{padding:76px 0}
+.eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:800;color:#078f87}
+.head{max-width:700px;margin-bottom:30px}
+.head h2{font-size:clamp(28px,4vw,40px);letter-spacing:-1px;line-height:1.25;margin:9px 0 12px}
+.muted,.head p{color:var(--muted);font-size:14px;line-height:1.9}
+.btn{border:0;border-radius:9px;padding:12px 18px;display:inline-flex;align-items:center;justify-content:center;gap:7px;font-size:13px;font-weight:800;transition:.2s}
+.primary{background:var(--teal);color:var(--dark)}.primary:hover{background:#4cddd2;transform:translateY(-1px)}
+.outline{border:1px solid #52677b;color:#fff;background:transparent}
+.darkbtn{background:var(--navy);color:#fff}
+/* navbar: actions LEFT, system name RIGHT */
+.navbar{position:sticky;top:0;z-index:30;background:rgba(9,23,39,.97);color:#fff}
+.nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.nav-actions{display:flex;gap:8px;align-items:center}
+.links{display:flex;gap:20px}.links a{font-size:12px;color:#d2deea}.links a:hover{color:var(--teal)}
+.logo{font-size:27px;font-weight:800;letter-spacing:-1px;cursor:pointer}.logo span{color:var(--teal)}
+.hello{font-size:12px;color:#d2deea}
+/* views */
+.view{display:none}.view.active{display:block}
+/* hero with animation */
+.hero{position:relative;overflow:hidden;min-height:620px;display:flex;align-items:center;color:#fff;text-align:center}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1900&q=85') center/cover;animation:kb 18s ease-in-out infinite alternate}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,20,35,.8),rgba(8,25,43,.6) 60%,rgba(8,25,43,.9))}
+.hero .container{position:relative;z-index:2;max-width:820px;padding:80px 0}
+.hero h1{font-size:clamp(40px,6.5vw,76px);line-height:1.08;letter-spacing:-2.5px;margin-bottom:20px}
+.hero h1 span{color:var(--teal)}
+.hero h2{font-size:clamp(18px,2.4vw,24px);color:#6ce7dc;margin-bottom:16px}
+.hero p{color:#d0dce6;font-size:15px;line-height:1.95;max-width:680px;margin:0 auto 30px}
+.rise{opacity:0;transform:translateY(30px);animation:rise .9s forwards}
+.d1{animation-delay:.2s}.d2{animation-delay:.6s}.d3{animation-delay:1s}.d4{animation-delay:1.4s}
+.cta{animation:pulse 2.4s 2.4s infinite;padding:15px 34px;font-size:15px}
+@keyframes rise{to{opacity:1;transform:none}}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.12)}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(18,184,173,.5)}50%{box-shadow:0 0 0 14px rgba(18,184,173,0)}}
+/* packages */
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px;position:relative;box-shadow:0 6px 22px #10243a0d}
+.card.feat{border:2px solid var(--teal)}
+.badge{position:absolute;top:-12px;right:18px;background:var(--teal);color:var(--dark);font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px}
+.card h3{font-size:22px;margin-bottom:4px}
+.price{font-size:32px;font-weight:800;margin:10px 0 2px}.price s{font-size:16px;color:var(--muted);font-weight:500}
+.off{display:inline-block;background:var(--pale);color:#078f87;font-weight:800;font-size:12px;padding:3px 10px;border-radius:20px;margin-bottom:12px}
+.card ul{list-style:none;margin:12px 0 18px;font-size:14px}.card li{padding:5px 0;border-bottom:1px dashed var(--line)}
+.gift{background:#fff7e0;border-radius:9px;padding:9px 12px;font-size:13px;font-weight:600;margin-bottom:16px}
+.about{background:var(--navy);color:#fff}.about .head p{color:#b9c8d6}.about .eyebrow{color:#6ce7dc}
+.about .card{background:#14304b;border-color:#24496b;color:#fff;box-shadow:none}.about .card p{color:#b9c8d6;font-size:14px}
+.ico{font-size:28px;margin-bottom:8px}
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.contact .card a{color:#078f87;font-weight:600}
+footer{background:var(--dark);color:#9fb1c2;text-align:center;padding:26px 0;font-size:13px}
+/* forms */
+.authwrap{min-height:calc(100vh - 72px);display:grid;place-items:center;padding:40px 0;background:linear-gradient(rgba(9,23,39,.82),rgba(9,23,39,.82)),url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1600&q=70') center/cover}
+.box{background:#fff;border-radius:18px;padding:32px;width:min(480px,92%);box-shadow:0 20px 60px #0006}
+.box h2{font-size:26px;margin-bottom:4px}
+.field{margin-top:14px;position:relative}
+label{display:block;font-size:11px;font-weight:800;letter-spacing:1px;color:var(--muted);margin-bottom:5px}
+input,select{width:100%;padding:12px 13px;border:1px solid #cfdbe3;border-radius:9px;background:#fff;color:var(--text)}
+input:focus,select:focus{outline:2px solid var(--teal);border-color:transparent}
+.err{color:#c0392b;font-size:13px;margin-top:10px;min-height:18px}
+.swap{font-size:13px;margin-top:14px;text-align:center;color:var(--muted)}.swap a{color:#078f87;font-weight:700;cursor:pointer}
+/* country picker */
+.cp-btn{width:100%;display:flex;align-items:center;gap:10px;text-align:left;padding:12px 13px;border:1px solid #cfdbe3;border-radius:9px;background:#fff}
+.cp-btn img,.cp-item img{width:24px;height:18px;object-fit:cover;border-radius:2px;box-shadow:0 0 0 1px #0002}
+.cp-list{display:none;position:absolute;z-index:20;left:0;right:0;top:100%;margin-top:4px;background:#fff;border:1px solid #cfdbe3;border-radius:10px;box-shadow:0 12px 30px #0003;max-height:280px;overflow:auto}
+.cp.open .cp-list{display:block}
+.cp-list input{position:sticky;top:0;border-radius:0;border:0;border-bottom:1px solid var(--line)}
+.cp-item{display:flex;align-items:center;gap:10px;padding:8px 13px;font-size:14px;cursor:pointer}.cp-item:hover{background:var(--pale)}
+/* planner */
+.planner{padding:50px 0 80px}
+.pbox{background:#fff;border-radius:18px;padding:34px;border:1px solid var(--line);box-shadow:0 10px 34px #10243a12;max-width:860px;margin:auto}
+.pbox h1{font-size:clamp(28px,4vw,38px);letter-spacing:-1px;text-align:center;margin-bottom:6px}
+.step{margin-top:28px;padding-top:6px;border-top:1px solid var(--line)}
+.step h3{font-size:16px;margin-top:14px;color:var(--navy)}.step h3 small{color:var(--muted);font-weight:500}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
+.locked{opacity:.45;pointer-events:none}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tier{border:2px solid var(--line);border-radius:12px;padding:14px;text-align:center;cursor:pointer;font-weight:700}
+.tier small{display:block;color:var(--muted);font-weight:500}.tier.sel{border-color:var(--teal);background:var(--pale)}
+.summary{background:var(--navy);color:#fff;border-radius:14px;padding:20px;margin-top:22px;font-size:14px}
+.summary b{color:#6ce7dc}.total{font-size:26px;font-weight:800;margin-top:6px}
+.tag{display:inline-block;background:var(--pale);color:#078f87;font-weight:700;font-size:12px;border-radius:20px;padding:3px 11px}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(90px);background:var(--navy);color:#fff;padding:13px 20px;border-radius:10px;font-size:14px;transition:.3s;z-index:50;max-width:90%}.toast.show{transform:translateX(-50%)}
+@media(max-width:700px){.row,.contact{grid-template-columns:1fr}.links{display:none}.tiers{grid-template-columns:1fr}}
+/* ---- added for new structure ---- */
+.nav{justify-content:flex-start}.nav .links{margin:0 auto}
+.links a{cursor:pointer;padding-bottom:3px;border-bottom:2px solid transparent}.links a.on{color:var(--teal);border-color:var(--teal);font-weight:700}
+.page{padding:44px 0 80px}.page h1{font-size:clamp(26px,3.5vw,34px);letter-spacing:-1px}
+.sel3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:26px}
+.sel3 .card{cursor:pointer;text-align:center;transition:.2s}.sel3 .card:hover{transform:translateY(-4px);border-color:var(--teal)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 22px}
+.chip{border:1px solid #cfdbe3;background:#fff;border-radius:20px;padding:6px 16px;font-size:12px;font-weight:700;color:var(--text)}.chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.hcard{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px;box-shadow:0 6px 22px #10243a0d;display:flex;flex-direction:column;gap:6px}
+.himg{height:130px;border-radius:12px;display:grid;place-items:center;font-size:44px;background:linear-gradient(135deg,#34d3f5,#9be34a)}.himg.big{height:150px;margin:10px 0}
+.hcard h4{font-size:16px}.hcard .btn{margin-top:6px}
+.modal{position:fixed;inset:0;background:#000a;z-index:60;display:none;place-items:center;padding:20px;overflow:auto}.modal.show{display:grid}
+.mbox{background:#fff;border-radius:22px;padding:26px;width:min(520px,100%);position:relative;margin:auto}
+.mx{position:absolute;top:12px;right:16px;border:0;background:none;font-size:24px}
+.info{background:var(--bg);border-radius:10px;padding:12px;font-size:13px;line-height:1.9}
+.tabs{display:flex;gap:8px;margin:18px 0}
+.brow{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.brow small{color:var(--muted);display:block}.brow .btn{padding:8px 14px}.st{font-weight:800;font-size:12px;color:#d98b00}.st.ok{color:#078f87}
+</style>
 </head>
 <body>
+<header class="navbar"><div class="container nav">
+  <div class="logo" data-go="logo">Travel<span>lo</span></div>
+  <nav class="links" id="navLinks"></nav>
+  <div class="nav-actions" id="navActions"></div>
+</div></header>
 
-  <!-- ======================== NAVBAR ======================== -->
-  <header class="navbar">
-    <div class="container nav">
-      <a class="logo" href="#home">Travel<span>lo.</span></a>
-      <button class="menu" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
-      <nav class="links" id="navLinks">
-        <a href="#home">Home</a>
-        <a href="#services">Services</a>
-        <a href="#destinations">Destinations</a>
-        <a href="#hotels">Hotels</a>
-        <a href="#transport">Transport</a>
-        <a href="#about">About</a>
-      </nav>
-      <div class="nav-actions">
-        <button class="btn outline" data-account="login">Log in</button>
-        <button class="btn primary" data-account="signup">Get Started ↗</button>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <!-- ======================== HERO ======================== -->
-    <section class="hero" id="home">
-      <div class="container hero-content">
-        <span class="pill">✦ Your journey starts here</span>
-        <h1>Explore the World.<br><span>Travel Your Way.</span></h1>
-        <p>Discover inspiring destinations, find your ideal stay, and explore transport options — all from one place. Travello helps you plan the journey and focus on the moments that matter.</p>
-        <div class="hero-buttons">
-          <a class="btn primary" href="#booking">Plan your trip →</a>
-          <a class="btn outline" href="#destinations">Explore destinations</a>
-        </div>
-        <div class="stats">
-          <div><strong>Destinations</strong><small>Places to explore</small></div>
-          <div><strong>Hotels &amp; stays</strong><small>Find your comfortable stay</small></div>
-          <div><strong>Travel options</strong><small>Plan trips your way</small></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ======================== BOOKING PANEL ======================== -->
-    <section class="booking">
-      <div class="container">
-        <div class="panel" id="booking">
-          <div class="tabs">
-            <button class="tab active" data-type="travel">✈ Travel</button>
-            <button class="tab" data-type="hotel">⌂ Hotels</button>
-            <button class="tab" data-type="transport">🚘 Transport</button>
-          </div>
-          <form class="formgrid" id="searchForm">
-            <div class="field">
-              <label id="placeLabel" for="place">DESTINATION</label>
-              <input id="place" placeholder="Where do you want to go?" required>
-            </div>
-            <div class="field">
-              <label id="dateLabel" for="date">TRAVEL DATE</label>
-              <input id="date" type="date" required>
-            </div>
-            <div class="field">
-              <label id="peopleLabel" for="people">TRAVELERS</label>
-              <select id="people">
-                <option>1 person</option>
-                <option selected>2 people</option>
-                <option>3 people</option>
-                <option>4 people</option>
-                <option>5+ people</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="budget">BUDGET</label>
-              <select id="budget">
-                <option>Any budget</option>
-                <option>Budget friendly</option>
-                <option>Comfort</option>
-                <option>Premium</option>
-              </select>
-            </div>
-            <button class="btn primary" type="submit">Search →</button>
-          </form>
-          <div class="message" id="searchMessage" role="status" hidden></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ======================== QUICK FEATURES ======================== -->
-    <section class="section" style="padding-bottom:35px">
-      <div class="container quick">
-        <article><div class="ico">🧭</div><h3>Plan with confidence</h3><p>Keep key travel details organized.</p></article>
-        <article><div class="ico">🏨</div><h3>Find your stay</h3><p>Explore accommodation options.</p></article>
-        <article><div class="ico">🚗</div><h3>Move with ease</h3><p>Consider transport for your journey.</p></article>
-        <article><div class="ico">💚</div><h3>One travel hub</h3><p>Bring travel planning together.</p></article>
-      </div>
-    </section>
-
-    <!-- ======================== SERVICES ======================== -->
-    <section class="section" id="services">
-      <div class="container">
-        <div class="head">
-          <span class="eyebrow">What we offer</span>
-          <h2>Everything you need to travel</h2>
-          <p>Start with the service you need. Travello brings together travel discovery, accommodation, transport, and trip planning in a clear experience.</p>
-        </div>
-        <div class="services">
-          <article class="service">
-            <div class="ico">✈️</div>
-            <h3>Travel planning</h3>
-            <p>Explore places, compare ideas, and begin organizing your next adventure.</p>
-            <a class="textlink" href="#destinations">Explore destinations →</a>
-          </article>
-          <article class="service">
-            <div class="ico">🏨</div>
-            <h3>Hotel reservations</h3>
-            <p>Browse example stays and choose accommodation that suits your plans.</p>
-            <a class="textlink" href="#hotels">Discover stays →</a>
-          </article>
-          <article class="service">
-            <div class="ico">🚘</div>
-            <h3>Transport options</h3>
-            <p>Explore sample transport choices for transfers, city rides, and road journeys.</p>
-            <a class="textlink" href="#transport">View transport →</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ======================== DESTINATIONS ======================== -->
-    <section class="section soft" id="destinations">
-      <div class="container">
-        <div class="head">
-          <span class="eyebrow">Find your next escape</span>
-          <h2>Popular destinations</h2>
-          <p>Get inspired by coastlines, mountain scenery, and places full of culture. Filter the sample destinations to explore the interface.</p>
-        </div>
-        <div class="filters" id="filters">
-          <button class="filter active" data-filter="all">All places</button>
-          <button class="filter" data-filter="beach">Beaches</button>
-          <button class="filter" data-filter="nature">Nature</button>
-          <button class="filter" data-filter="culture">Culture</button>
-        </div>
-        <div class="cards" id="destinationCards">
-          <article class="travelcard" data-category="beach">
-            <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=900&q=80" alt="Tropical ocean beach" loading="lazy">
-            <div class="cardbody">
-              <div class="cardtop"><span class="tag">Beach escape</span><span>★ Coastal</span></div>
-              <h3>Mirissa, Sri Lanka</h3>
-              <p>Relax by the ocean, discover coastal cafés, and enjoy a laid-back beach atmosphere.</p>
-              <div class="cardbottom">
-                <span class="price">Explore<small>Destination guide</small></span>
-                <button class="btn darkbtn" data-plan="Mirissa, Sri Lanka">Plan trip</button>
-              </div>
-            </div>
-          </article>
-          <article class="travelcard" data-category="nature">
-            <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=80" alt="Mountain landscape" loading="lazy">
-            <div class="cardbody">
-              <div class="cardtop"><span class="tag">Nature</span><span>★ Scenic</span></div>
-              <h3>Ella, Sri Lanka</h3>
-              <p>Enjoy misty hills, green landscapes, hiking routes, and beautiful viewpoints.</p>
-              <div class="cardbottom">
-                <span class="price">Explore<small>Destination guide</small></span>
-                <button class="btn darkbtn" data-plan="Ella, Sri Lanka">Plan trip</button>
-              </div>
-            </div>
-          </article>
-          <article class="travelcard" data-category="culture">
-            <img src="https://images.unsplash.com/photo-1546708973-b339540b5162?auto=format&fit=crop&w=900&q=80" alt="Cultural travel destination" loading="lazy">
-            <div class="cardbody">
-              <div class="cardtop"><span class="tag">Culture</span><span>★ Heritage</span></div>
-              <h3>Kandy, Sri Lanka</h3>
-              <p>Discover heritage, local traditions, gardens, and the character of the hill capital.</p>
-              <div class="cardbottom">
-                <span class="price">Explore<small>Destination guide</small></span>
-                <button class="btn darkbtn" data-plan="Kandy, Sri Lanka">Plan trip</button>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ======================== HOTELS ======================== -->
-    <section class="section" id="hotels">
-      <div class="container">
-        <div class="head">
-          <span class="eyebrow">Stay your way</span>
-          <h2>Featured stays</h2>
-          <p>Sample accommodation cards to help develop the hotel section. Live prices and availability need a real booking API.</p>
-        </div>
-        <div class="cards">
-          <article class="travelcard">
-            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=80" alt="Resort swimming pool" loading="lazy">
-            <div class="cardbody">
-              <span class="tag">Resort</span>
-              <h3>Oceanview Resort</h3>
-              <p>A sample resort concept for a relaxing getaway.</p>
-              <div class="cardbottom">
-                <span class="price">Coastal stay<small>Example listing</small></span>
-                <button class="btn darkbtn" data-request="hotel" data-item="Oceanview Resort">View stay</button>
-              </div>
-            </div>
-          </article>
-          <article class="travelcard">
-            <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=900&q=80" alt="Modern hotel room" loading="lazy">
-            <div class="cardbody">
-              <span class="tag">City hotel</span>
-              <h3>City Comfort Hotel</h3>
-              <p>A sample city stay with convenient access to local attractions.</p>
-              <div class="cardbottom">
-                <span class="price">City stay<small>Example listing</small></span>
-                <button class="btn darkbtn" data-request="hotel" data-item="City Comfort Hotel">View stay</button>
-              </div>
-            </div>
-          </article>
-          <article class="travelcard">
-            <img src="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?auto=format&fit=crop&w=900&q=80" alt="Nature retreat accommodation" loading="lazy">
-            <div class="cardbody">
-              <span class="tag">Nature retreat</span>
-              <h3>Highland Retreat</h3>
-              <p>A sample retreat concept for a quiet stay surrounded by nature.</p>
-              <div class="cardbottom">
-                <span class="price">Nature stay<small>Example listing</small></span>
-                <button class="btn darkbtn" data-request="hotel" data-item="Highland Retreat">View stay</button>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ======================== TRANSPORT ======================== -->
-    <section class="section soft" id="transport">
-      <div class="container">
-        <div class="head">
-          <span class="eyebrow">Getting there</span>
-          <h2>Transport for your journey</h2>
-          <p>Choose a sample transport category. Real operators, routes, fares, and schedules require backend integration.</p>
-        </div>
-        <div class="services">
-          <article class="service">
-            <div class="ico">🚙</div>
-            <h3>Private car</h3>
-            <p>Flexible trips, private transfers, and journeys with family or friends.</p>
-            <button class="btn darkbtn" data-request="transport" data-item="Private car">Choose transport →</button>
-          </article>
-          <article class="service">
-            <div class="ico">🚐</div>
-            <h3>Van / group travel</h3>
-            <p>A sample option for group outings, tours, and shared travel plans.</p>
-            <button class="btn darkbtn" data-request="transport" data-item="Van / group travel">Choose transport →</button>
-          </article>
-          <article class="service">
-            <div class="ico">🚕</div>
-            <h3>City transfer</h3>
-            <p>Plan a local ride or airport transfer as part of your trip.</p>
-            <button class="btn darkbtn" data-request="transport" data-item="City transfer">Choose transport →</button>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ======================== ABOUT ======================== -->
-    <section class="section" id="about">
-      <div class="container split">
-        <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1200&q=85" alt="Travel planning map and passport" loading="lazy">
-        <div>
-          <span class="eyebrow">About Travello</span>
-          <h2 style="font-size:clamp(28px,4vw,40px);line-height:1.2;margin:10px 0 13px">A simpler way to bring travel plans together.</h2>
-          <p class="muted">Travello is a travel, hotel, and transport booking website concept designed to help users explore destinations, browse accommodation, consider transport options, and organize travel requests through one consistent interface.</p>
-          <div class="features">
-            <div class="feature">
-              <div class="check">✓</div>
-              <div><h3>Clear travel discovery</h3><p class="muted">Browse destination cards and filter places by travel style.</p></div>
-            </div>
-            <div class="feature">
-              <div class="check">✓</div>
-              <div><h3>Connected booking journey</h3><p class="muted">Start with a destination, date, traveler count, and preference.</p></div>
-            </div>
-            <div class="feature">
-              <div class="check">✓</div>
-              <div><h3>Responsive experience</h3><p class="muted">Designed for desktop, tablet, and mobile screens.</p></div>
-            </div>
-          </div>
-          <a class="btn primary" href="#booking">Start planning →</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ======================== CTA ======================== -->
-    <section class="section" style="padding-top:0">
-      <div class="container cta">
-        <div>
-          <h2>Your next adventure awaits.</h2>
-          <p>Choose a destination, select a date, and start building your travel plan with Travello.</p>
-        </div>
-        <a class="btn primary" href="#booking">Plan my trip →</a>
-      </div>
-    </section>
-  </main>
-
-  <!-- ======================== FOOTER ======================== -->
-  <footer id="contact">
+<!-- ========== WELCOME ========== -->
+<main class="view active" id="v-welcome">
+  <section class="hero" id="top">
+    <div class="hero-bg"></div>
     <div class="container">
-      <div class="footgrid">
-        <div>
-          <a class="logo" href="#home">Travel<span>lo.</span></a>
-          <p class="footabout">Explore destinations, accommodation ideas, and transport options with a travel planning experience designed to keep your journey organized.</p>
-        </div>
-        <div>
-          <h3>Explore</h3>
-          <a href="#destinations">Destinations</a>
-          <a href="#hotels">Hotels &amp; stays</a>
-          <a href="#transport">Transport</a>
-          <a href="#about">About Travello</a>
-        </div>
-        <div>
-          <h3>Developer support</h3>
-          <p>Sahan Wickramaarachchi</p>
-          <a href="mailto:sahanransika07@gmail.com">sahanransika07@gmail.com</a>
-          <a href="tel:0773377494">0773377494</a>
-          <p>IJSE · Advanced API Development</p>
-        </div>
-      </div>
-      <div class="footbottom">
-        <span>© <span id="year"></span> Travello. Academic practical project.</span>
-        <span>Travel · Hotels · Transport</span>
-      </div>
+      <h1 class="rise d1">Explore the World.<br><span>Travel Your Way.</span></h1>
+      <h2 class="rise d2">Discover inspiring destinations, find your ideal stay, and explore transport options — all from one place.</h2>
+      <p class="rise d3">Travello helps you plan the journey and focus on the moments that matter.</p>
+      <button class="btn primary cta rise d4" data-go="login">Get Started →</button>
     </div>
-  </footer>
+  </section>
 
-  <!-- ======================== REQUEST MODAL ======================== -->
-  <div class="modal" id="requestModal" role="dialog" aria-modal="true" aria-labelledby="requestTitle">
-    <div class="modalbox">
-      <div class="modalhead">
-        <h2 id="requestTitle">Start a travel request</h2>
-        <button class="close" data-close aria-label="Close">×</button>
-      </div>
-      <div class="modalbody">
-        <form class="modalform" id="requestForm">
-          <div class="field">
-            <label for="requestType">REQUEST TYPE</label>
-            <select id="requestType">
-              <option value="travel">Travel plan</option>
-              <option value="hotel">Hotel stay</option>
-              <option value="transport">Transport</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="requestItem">SELECTED OPTION</label>
-            <input id="requestItem" required>
-          </div>
-          <div class="field">
-            <label for="requestName">YOUR NAME</label>
-            <input id="requestName" required placeholder="Enter your name">
-          </div>
-          <div class="field">
-            <label for="requestEmail">EMAIL ADDRESS</label>
-            <input id="requestEmail" type="email" required placeholder="you@example.com">
-          </div>
-          <div class="field">
-            <label for="requestDate">TRAVEL DATE</label>
-            <input id="requestDate" type="date" required>
-          </div>
-          <div class="field">
-            <label for="requestNotes">NOTES (OPTIONAL)</label>
-            <textarea id="requestNotes" rows="3" placeholder="Any preferences?"></textarea>
-          </div>
-          <button class="btn primary" type="submit">Save demo request →</button>
-          <p class="note">Demo mode only: the request is saved in this browser using localStorage. It is not sent to a provider and does not confirm a real reservation.</p>
-        </form>
-      </div>
+  <section class="section container" id="packages">
+    <div class="head"><span class="eyebrow">Packages</span><h2>Choose the package that fits your journey</h2><p>Special launch discounts and complimentary gifts with every package.</p></div>
+    <div class="grid3">
+      <div class="card"><h3>Budget</h3><span class="muted">Smart travel for less</span>
+        <div class="price">$299 <s>$349</s></div><span class="off">15% OFF</span>
+        <ul><li>✔ 3 nights in a 3★ stay</li><li>✔ Shared transfers</li><li>✔ City sightseeing pass</li></ul>
+        <div class="gift">🎁 Free Travello travel pouch</div><button class="btn darkbtn" data-go="login">Book this package</button></div>
+      <div class="card feat"><span class="badge">MOST POPULAR</span><h3>Mid-Range</h3><span class="muted">Comfort and value</span>
+        <div class="price">$649 <s>$799</s></div><span class="off">19% OFF</span>
+        <ul><li>✔ 5 nights in a 4★ stay</li><li>✔ Private airport transfers</li><li>✔ Guided half-day tour</li></ul>
+        <div class="gift">🎁 Free SIM card + welcome dinner</div><button class="btn primary" data-go="login">Book this package</button></div>
+      <div class="card"><h3>Luxury</h3><span class="muted">Premium, unforgettable</span>
+        <div class="price">$1,499 <s>$1,999</s></div><span class="off">25% OFF</span>
+        <ul><li>✔ 7 nights in a 5★ resort</li><li>✔ Chauffeur-driven car</li><li>✔ Spa day &amp; private excursions</li></ul>
+        <div class="gift">🎁 Free luggage set + champagne welcome</div><button class="btn darkbtn" data-go="login">Book this package</button></div>
     </div>
+  </section>
+
+  <section class="section about" id="about"><div class="container">
+    <div class="head"><span class="eyebrow">About</span><h2>One platform for your whole journey</h2><p>Travello brings destinations, hotels and transport together so planning a trip, an office visit or an event takes minutes, not days.</p></div>
+    <div class="grid3">
+      <div class="card"><div class="ico">🧭</div><h3>Smart planning</h3><p>Pick your purpose — Travel, Office or Event — then your country, location, passengers and date in a guided flow.</p></div>
+      <div class="card"><div class="ico">🏨</div><h3>Hotels at your location</h3><p>See stays available at your chosen destination and choose the one that suits you.</p></div>
+      <div class="card"><div class="ico">🚐</div><h3>Transport that fits</h3><p>Budget, Middle or Luxury pricing, with options tailored to whether you are a resident or a visitor.</p></div>
+    </div>
+  </div></section>
+
+  <section class="section container" id="contact">
+    <div class="head"><span class="eyebrow">Support &amp; Contact</span><h2>We are here to help</h2><p>Questions about a plan, a package or your account? Reach out any time.</p></div>
+    <div class="contact">
+      <div class="card"><h3>Developer support</h3><p>Sahan Wickramaarachchi<br>IJSE · Advanced API Development</p></div>
+      <div class="card"><h3>Contact</h3><p>✉ <a href="mailto:sahanransika07@gmail.com">sahanransika07@gmail.com</a><br>☎ <a href="tel:0773377494">0773377494</a></p></div>
+    </div>
+  </section>
+  <footer>© <span class="yr"></span> Travello. Academic practical project. · Travel · Hotels · Transport</footer>
+</main>
+
+<!-- ========== LOGIN ========== -->
+<main class="view" id="v-login"><div class="authwrap"><form class="box" id="loginForm">
+  <h2>Welcome back</h2><p class="muted">Log in to plan your next trip.</p>
+  <div class="field"><label>EMAIL ADDRESS</label><input id="lEmail" type="email" required placeholder="you@example.com"></div>
+  <div class="field"><label>PASSWORD</label><input id="lPass" type="password" required placeholder="Your password"></div>
+  <div class="err" id="lErr"></div>
+  <button class="btn primary" style="width:100%" type="submit">Login →</button>
+  <p class="swap">New to Travello? <a data-go="signup">Create an account</a></p>
+</form></div></main>
+
+<!-- ========== SIGN UP ========== -->
+<main class="view" id="v-signup"><div class="authwrap"><form class="box" id="signupForm">
+  <h2>Create your account</h2><p class="muted">Join Travello in a few seconds.</p>
+  <div class="field"><label>FULL NAME</label><input id="sName" required placeholder="Enter your name"></div>
+  <div class="field"><label>EMAIL ADDRESS</label><input id="sEmail" type="email" required placeholder="you@example.com"></div>
+  <div class="field"><label>PASSWORD</label><input id="sPass" type="password" minlength="6" required placeholder="At least 6 characters"></div>
+  <div class="field"><label>COUNTRY</label><div class="cp" id="signupCountry"></div></div>
+  <div class="err" id="sErr"></div>
+  <button class="btn primary" style="width:100%" type="submit">Sign Up →</button>
+  <p class="swap">Already registered? <a data-go="login">Login</a></p>
+</form></div></main>
+
+<!-- ========== HOME (PLANNER) ========== -->
+<main class="view" id="v-home"><div class="planner container"><div class="pbox">
+  <h1>Travello Booking Planner</h1><p class="muted" style="text-align:center">Welcome back! Tell us about your trip.</p>
+  <div class="step"><h3>1. Planner type</h3>
+    <div class="field"><select id="ptype"><option value="">Select…</option><option>Travel</option><option>Office</option><option>Event</option></select></div></div>
+  <div class="step"><h3>2. Destination <small>(destination country)</small></h3>
+    <div class="field"><div class="cp" id="destCountry"></div></div></div>
+  <div class="step"><h3>3. Location</h3>
+    <div class="field"><input id="loc" placeholder="🔍 Search a city or place" autocomplete="off"></div></div>
+  <button class="btn primary" id="searchBtn" style="width:100%;margin-top:24px">Search →</button>
+</div></div></main>
+
+<!-- ========== SELECTION HOME ========== -->
+<main class="view" id="v-select"><div class="page container">
+  <h1>What would you like to book?</h1><p class="muted" id="selInfo"></p>
+  <div class="sel3">
+    <div class="card" data-go="hotel"><div class="ico">🏨</div><h3>Hotel</h3><p class="muted">Hotels, villas, restaurants &amp; bungalows at your location.</p></div>
+    <div class="card" data-go="transport"><div class="ico">🚐</div><h3>Transport</h3><p class="muted">Private vehicles and transport services.</p></div>
+    <div class="card" data-go="booking"><div class="ico">📋</div><h3>Booking</h3><p class="muted">Confirm or cancel your bookings.</p></div>
   </div>
+</div></main>
 
-  <!-- ======================== ACCOUNT MODAL ======================== -->
-  <div class="modal" id="accountModal" role="dialog" aria-modal="true" aria-labelledby="accountTitle">
-    <div class="modalbox">
-      <div class="modalhead">
-        <h2 id="accountTitle">Welcome to Travello</h2>
-        <button class="close" data-close aria-label="Close">×</button>
-      </div>
-      <div class="modalbody">
-        <form class="modalform" id="accountForm">
-          <div class="field">
-            <label for="accountName">YOUR NAME</label>
-            <input id="accountName" required placeholder="Enter your name">
-          </div>
-          <div class="field">
-            <label for="accountEmail">EMAIL ADDRESS</label>
-            <input id="accountEmail" type="email" required placeholder="you@example.com">
-          </div>
-          <button class="btn primary" type="submit">Continue in demo mode →</button>
-          <p class="note">This is not secure authentication. Connect a backend before using real accounts.</p>
-        </form>
-      </div>
-    </div>
-  </div>
+<!-- ========== HOTEL BOOKING ========== -->
+<main class="view" id="v-hotel"><div class="page container">
+  <h1>Hotel Booking</h1><p class="muted" id="hInfo"></p>
+  <div class="chips" id="hChips"></div><div class="grid3" id="hGrid"></div>
+</div></main>
 
-  <!-- ======================== TOAST ======================== -->
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<!-- ========== TRANSPORT BOOKING ========== -->
+<main class="view" id="v-transport"><div class="page container">
+  <h1>Transport Booking</h1><p class="muted" id="tInfo"></p>
+  <div class="chips" id="tChips"></div><div class="grid3" id="tGrid"></div>
+</div></main>
 
-  <script>
-    (() => {
-      const $ = (s, r = document) => r.querySelector(s);
-      const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+<!-- ========== BOOKING ========== -->
+<main class="view" id="v-booking"><div class="page container">
+  <h1>Booking</h1>
+  <div class="tabs" id="bTabs"></div><div id="bList"></div>
+</div></main>
 
-      let type = 'travel';
-      let timer;
+<div class="modal" id="modal"><div class="mbox"><button class="mx" data-act="close">×</button><div id="modalBody"></div></div></div>
+<div class="toast" id="toast"></div>
 
-      const settings = {
-        travel: { label: 'DESTINATION', placeholder: 'Where do you want to go?', date: 'TRAVEL DATE', people: 'TRAVELERS' },
-        hotel: { label: 'CITY OR HOTEL', placeholder: 'Enter city or hotel name', date: 'CHECK-IN DATE', people: 'GUESTS' },
-        transport: { label: 'PICK-UP LOCATION', placeholder: 'Enter pick-up location', date: 'JOURNEY DATE', people: 'PASSENGERS' }
-      };
+<script>
+(() => {
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+// ---- all countries (ISO code:name) ----
+const C=`AF:Afghanistan|AL:Albania|DZ:Algeria|AD:Andorra|AO:Angola|AG:Antigua and Barbuda|AR:Argentina|AM:Armenia|AU:Australia|AT:Austria|AZ:Azerbaijan|BS:Bahamas|BH:Bahrain|BD:Bangladesh|BB:Barbados|BY:Belarus|BE:Belgium|BZ:Belize|BJ:Benin|BT:Bhutan|BO:Bolivia|BA:Bosnia and Herzegovina|BW:Botswana|BR:Brazil|BN:Brunei|BG:Bulgaria|BF:Burkina Faso|BI:Burundi|CV:Cabo Verde|KH:Cambodia|CM:Cameroon|CA:Canada|CF:Central African Republic|TD:Chad|CL:Chile|CN:China|CO:Colombia|KM:Comoros|CG:Congo|CD:Congo (DRC)|CR:Costa Rica|CI:Côte d'Ivoire|HR:Croatia|CU:Cuba|CY:Cyprus|CZ:Czechia|DK:Denmark|DJ:Djibouti|DM:Dominica|DO:Dominican Republic|EC:Ecuador|EG:Egypt|SV:El Salvador|GQ:Equatorial Guinea|ER:Eritrea|EE:Estonia|SZ:Eswatini|ET:Ethiopia|FJ:Fiji|FI:Finland|FR:France|GA:Gabon|GM:Gambia|GE:Georgia|DE:Germany|GH:Ghana|GR:Greece|GD:Grenada|GT:Guatemala|GN:Guinea|GW:Guinea-Bissau|GY:Guyana|HT:Haiti|VA:Holy See|HN:Honduras|HK:Hong Kong|HU:Hungary|IS:Iceland|IN:India|ID:Indonesia|IR:Iran|IQ:Iraq|IE:Ireland|IL:Israel|IT:Italy|JM:Jamaica|JP:Japan|JO:Jordan|KZ:Kazakhstan|KE:Kenya|KI:Kiribati|XK:Kosovo|KW:Kuwait|KG:Kyrgyzstan|LA:Laos|LV:Latvia|LB:Lebanon|LS:Lesotho|LR:Liberia|LY:Libya|LI:Liechtenstein|LT:Lithuania|LU:Luxembourg|MO:Macao|MG:Madagascar|MW:Malawi|MY:Malaysia|MV:Maldives|ML:Mali|MT:Malta|MH:Marshall Islands|MR:Mauritania|MU:Mauritius|MX:Mexico|FM:Micronesia|MD:Moldova|MC:Monaco|MN:Mongolia|ME:Montenegro|MA:Morocco|MZ:Mozambique|MM:Myanmar|NA:Namibia|NR:Nauru|NP:Nepal|NL:Netherlands|NZ:New Zealand|NI:Nicaragua|NE:Niger|NG:Nigeria|KP:North Korea|MK:North Macedonia|NO:Norway|OM:Oman|PK:Pakistan|PW:Palau|PS:Palestine|PA:Panama|PG:Papua New Guinea|PY:Paraguay|PE:Peru|PH:Philippines|PL:Poland|PT:Portugal|PR:Puerto Rico|QA:Qatar|RO:Romania|RU:Russia|RW:Rwanda|KN:Saint Kitts and Nevis|LC:Saint Lucia|VC:Saint Vincent and the Grenadines|WS:Samoa|SM:San Marino|ST:São Tomé and Príncipe|SA:Saudi Arabia|SN:Senegal|RS:Serbia|SC:Seychelles|SL:Sierra Leone|SG:Singapore|SK:Slovakia|SI:Slovenia|SB:Solomon Islands|SO:Somalia|ZA:South Africa|KR:South Korea|SS:South Sudan|ES:Spain|LK:Sri Lanka|SD:Sudan|SR:Suriname|SE:Sweden|CH:Switzerland|SY:Syria|TW:Taiwan|TJ:Tajikistan|TZ:Tanzania|TH:Thailand|TL:Timor-Leste|TG:Togo|TO:Tonga|TT:Trinidad and Tobago|TN:Tunisia|TR:Türkiye|TM:Turkmenistan|TV:Tuvalu|UG:Uganda|UA:Ukraine|AE:United Arab Emirates|GB:United Kingdom|US:United States|UY:Uruguay|UZ:Uzbekistan|VU:Vanuatu|VE:Venezuela|VN:Vietnam|YE:Yemen|ZM:Zambia|ZW:Zimbabwe`.split('|').map(x=>{const i=x.indexOf(':');return{c:x.slice(0,i),n:x.slice(i+1)}});
+const flag=c=>`https://flagcdn.com/48x36/${c.toLowerCase()}.png`;
 
-      function notify(text) {
-        const t = $('#toast');
-        t.textContent = text;
-        t.classList.add('show');
-        clearTimeout(timer);
-        timer = setTimeout(() => t.classList.remove('show'), 3600);
-      }
+// ---- country picker with flags ----
+function picker(el,onChange){
+  el.innerHTML=`<button type="button" class="cp-btn"><span>Select country</span></button><div class="cp-list"><input placeholder="Search country…"><div class="items"></div></div>`;
+  const btn=$('.cp-btn',el),items=$('.items',el),q=$('input',el);let val='';
+  const draw=f=>{items.innerHTML=C.filter(x=>x.n.toLowerCase().includes(f.toLowerCase())).map(x=>`<div class="cp-item" data-c="${x.c}"><img src="${flag(x.c)}" alt="" loading="lazy">${x.n}</div>`).join('')};
+  const set=(c,silent)=>{const x=C.find(y=>y.c===c);if(!x)return;val=c;btn.innerHTML=`<img src="${flag(c)}" alt=""><span>${x.n}</span>`;el.classList.remove('open');if(!silent&&onChange)onChange(c)};
+  draw('');
+  btn.onclick=()=>{el.classList.toggle('open');q.value='';draw('');q.focus()};
+  q.oninput=()=>draw(q.value);
+  items.onclick=e=>{const i=e.target.closest('.cp-item');if(i)set(i.dataset.c)};
+  document.addEventListener('click',e=>{if(!el.contains(e.target))el.classList.remove('open')});
+  return{get:()=>val,set};
+}
 
-      function open(id) {
-        $(id).classList.add('open');
-        document.body.style.overflow = 'hidden';
-      }
+// ---- storage (safe) ----
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+let session=null;try{session=store.get('travello_session',null)}catch{}
+let toastT;const toast=t=>{const e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>e.classList.remove('show'),3800)};
 
-      function close(modal) {
-        modal.classList.remove('open');
-        if (!$('.modal.open')) document.body.style.overflow = '';
-      }
+// ---- navigation ----
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const AUTH=['home','select','hotel','transport','booking'],SUB=['select','hotel','transport','booking'];
+let search=store.get('travello_search',null),hF='All',tF='All',bTab='hotel',cur=null;
+const cname=()=>C.find(x=>x.c===search.dest).n;
+function renderNav(v){
+  const a=$('#navActions'),l=$('#navLinks');
+  if(session){a.innerHTML=`<span class="hello">Hi ${esc(session.name)}</span><button class="btn outline" data-act="logout">Logout</button>`;
+    l.innerHTML=SUB.includes(v)?[['hotel','Hotel'],['transport','Transport'],['booking','Booking']].map(([k,t])=>`<a data-go="${k}" class="${k===v?'on':''}">${t}</a>`).join(''):'';}
+  else{a.innerHTML=`<button class="btn outline" data-go="login">Login</button><button class="btn primary" data-go="signup">Signup</button>`;
+    l.innerHTML=v==='welcome'?'<a href="#packages">Packages</a><a href="#about">About</a><a href="#contact">Support &amp; Contact</a>':'';}
+}
+function go(v){
+  if(v==='logo')v=session?'home':'welcome';
+  if(AUTH.includes(v)&&!session)v='login';
+  if(['select','hotel','transport'].includes(v)&&!search)v='home';
+  $$('.view').forEach(x=>x.classList.toggle('active',x.id==='v-'+v));
+  ({select:drawSelect,hotel:drawHotels,transport:drawTransport,booking:drawBookings})[v]?.();
+  renderNav(v);window.scrollTo(0,0);
+}
+$$('.yr').forEach(x=>x.textContent=new Date().getFullYear());
 
-      // ---------- date setup ----------
-      const today = new Date();
-      const localToday = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-      $('#year').textContent = today.getFullYear();
-      $('#date').min = localToday;
-      $('#requestDate').min = localToday;
+// ---- signup / login (demo: localStorage, not secure) ----
+const signupC=picker($('#signupCountry'));
+$('#signupForm').onsubmit=e=>{e.preventDefault();
+  if(!signupC.get()){$('#sErr').textContent='Please select your country.';return}
+  const users=store.get('travello_users',[]),email=$('#sEmail').value.trim().toLowerCase();
+  if(users.some(u=>u.email===email)){$('#sErr').textContent='This email is already registered. Please login.';return}
+  users.push({name:$('#sName').value.trim(),email,pass:$('#sPass').value,country:signupC.get()});
+  store.set('travello_users',users);$('#sErr').textContent='';e.target.reset();
+  toast('Account created! Please login.');go('login');
+};
+$('#loginForm').onsubmit=e=>{e.preventDefault();
+  const u=store.get('travello_users',[]).find(x=>x.email===$('#lEmail').value.trim().toLowerCase()&&x.pass===$('#lPass').value);
+  if(!u){$('#lErr').textContent='Invalid email or password — or sign up first.';return}
+  session={name:u.name,email:u.email,country:u.country};store.set('travello_session',session);
+  $('#lErr').textContent='';e.target.reset();go('home');
+};
 
-      // ---------- tabs ----------
-      $$('.tab').forEach(b => b.addEventListener('click', () => {
-        $$('.tab').forEach(x => x.classList.toggle('active', x === b));
-        type = b.dataset.type;
-        const s = settings[type];
-        $('#placeLabel').textContent = s.label;
-        $('#place').placeholder = s.placeholder;
-        $('#dateLabel').textContent = s.date;
-        $('#peopleLabel').textContent = s.people;
-        $('#searchMessage').hidden = true;
-      }));
+// ---- home planner ----
+const destC=picker($('#destCountry'));
+$('#searchBtn').onclick=()=>{
+  const t=$('#ptype').value,d=destC.get(),l=$('#loc').value.trim();
+  if(!t)return toast('Please select a planner type.');
+  if(!d)return toast('Please select the destination country.');
+  if(!l)return toast('Please enter a location.');
+  search={type:t,dest:d,loc:l};store.set('travello_search',search);go('select');
+};
+const where=()=>`${esc(search.type)} planner · ${esc(search.loc)}, ${esc(cname())}`;
+function drawSelect(){$('#selInfo').innerHTML=where()+' — choose a service below.'}
 
-      // ---------- search form ----------
-      $('#searchForm').addEventListener('submit', e => {
-        e.preventDefault();
-        $('#searchMessage').textContent = `Search prepared: ${type} · ${$('#place').value.trim()} · ${$('#date').value} · ${$('#people').value} · ${$('#budget').value}. Live availability is not connected in this demo.`;
-        $('#searchMessage').hidden = false;
-      });
+// ---- data (demo) ----
+const HT=[['Hotel','Grand {l} Hotel',120],['Villa','{l} Garden Villa',200],['Restaurant','{l} Ocean Restaurant & Stay',90],['Bungalow','{l} Beach Bungalow',75],['Hotel','The {l} Residency',150],['Villa','{l} Heritage Villa',260]];
+const hotels=()=>HT.map(([type,n,price],i)=>({i,type,name:n.replace('{l}',search.loc),price,rooms:2+i%4,pool:i%2===0}));
+const VH=[['Toyota Prius','Private','Toyota','Fuel',12],['Nissan Leaf','Private','Nissan','Electric',15],['Tourist Van','Transport Service','Toyota HiAce','Fuel',20],['Luxury Coach','Transport Service','Volvo','Fuel',35],['Tesla Model 3','Private','Tesla','Electric',30],['Mini Bus','Transport Service','Isuzu','Fuel',25]];
+const vehicles=()=>VH.map(([name,type,brand,power,price],i)=>({i,name,type,brand,power,price}));
+const chips=(list,cur,act)=>list.map(t=>`<button class="chip ${t===cur?'on':''}" data-act="${act}" data-v="${t}">${t}</button>`).join('');
+const card=(it,kind,sub,ico)=>`<div class="hcard"><div class="himg">${ico}</div><h4>${esc(it.name)}</h4><p class="muted">${sub}</p><button class="btn darkbtn" data-act="open" data-kind="${kind}" data-i="${it.i}">Booking</button></div>`;
+function drawHotels(){
+  $('#hInfo').innerHTML=where();$('#hChips').innerHTML=chips(['All','Hotel','Villa','Restaurant','Bungalow'],hF,'hf');
+  $('#hGrid').innerHTML=hotels().filter(h=>hF==='All'||h.type===hF).map(h=>card(h,'hotel',`${h.type} · $${h.price} / night`,'🏨')).join('');
+}
+function drawTransport(){
+  $('#tInfo').innerHTML=where();$('#tChips').innerHTML=chips(['All','Private','Transport Service'],tF,'tf');
+  $('#tGrid').innerHTML=vehicles().filter(v=>tF==='All'||v.type===tF).map(v=>card(v,'transport',`${v.type} · ${v.power} · $${v.price} / hour`,'🚐')).join('');
+}
 
-      // ---------- destination filters ----------
-      $$('#filters .filter').forEach(b => b.addEventListener('click', () => {
-        $$('#filters .filter').forEach(x => x.classList.toggle('active', x === b));
-        const f = b.dataset.filter;
-        let count = 0;
-        $$('[data-category]', $('#destinationCards')).forEach(c => {
-          const show = f === 'all' || c.dataset.category === f;
-          c.hidden = !show;
-          if (show) count++;
-        });
-        let empty = $('.empty', $('#destinationCards'));
-        if (!count && !empty) {
-          empty = document.createElement('div');
-          empty.className = 'empty';
-          empty.textContent = 'No destinations match this filter yet.';
-          $('#destinationCards').appendChild(empty);
-        } else if (count && empty) {
-          empty.remove();
-        }
-      }));
+// ---- detail popup ----
+function openModal(kind,i){
+  const H=kind==='hotel',it=(H?hotels():vehicles())[i];cur={kind,it};
+  $('#modalBody').innerHTML=`<h3>${esc(it.name)}</h3><div class="himg big">${H?'🏨':'🚐'}</div>
+  <div class="info">${H?`Location: ${esc(search.loc)}, ${esc(cname())}<br>Rooms: ${it.rooms} available<br>Swimming pool: ${it.pool?'✅ Yes':'No'}<br>Price: $${it.price} / night`:`Brand: ${esc(it.brand)}<br>Electric or Fuel: ${it.power}<br>1 hour price: $${it.price}`}</div>
+  <div class="row"><div class="field"><label>START DATE</label><input id="mStart" type="date"></div><div class="field"><label>END DATE</label><input id="mEnd" type="date"></div></div>
+  ${H?'':'<div class="field"><label>NIC</label><input id="mNic" placeholder="NIC number"></div>'}
+  <div class="field"><label>PASSENGER COUNT</label><input id="mPax" type="number" min="1" max="100" value="1"></div>
+  <div class="summary"><span id="mDays"></span><div class="total" id="mPrice"></div></div>
+  <button class="btn primary" style="width:100%;margin-top:14px" data-act="confirm">Booking Confirm</button>`;
+  $('#mStart').min=$('#mEnd').min=new Date().toISOString().slice(0,10);
+  $('#modal').classList.add('show');calc();
+}
+function calc(){
+  if(!cur||!$('#mStart'))return{days:0,price:0,pax:1};
+  const s=$('#mStart').value,e=$('#mEnd').value,pax=Math.max(1,+$('#mPax').value||1),H=cur.kind==='hotel';
+  let d=s&&e?Math.round((new Date(e)-new Date(s))/864e5):-1;
+  const days=d<0?0:H?d:d+1,price=H?days*cur.it.price*Math.ceil(pax/2):days*cur.it.price*10;
+  $('#mDays').textContent=`Day count: ${days}`;$('#mPrice').textContent=`Price: $${price}`;
+  return{days,price,pax};
+}
+$('#modal').addEventListener('input',calc);
 
-      // ---------- plan trip buttons ----------
-      $$('[data-plan]').forEach(b => b.addEventListener('click', () => {
-        $$('.tab').find(t => t.dataset.type === 'travel').click();
-        $('#place').value = b.dataset.plan;
-        $('#booking').scrollIntoView({ behavior: 'smooth' });
-        notify('Destination selected. Choose a date and search to continue.');
-      }));
+// ---- booking list ----
+const bookings=()=>store.get('travello_bookings',[]).filter(b=>b.user===session?.email);
+function drawBookings(){
+  $('#bTabs').innerHTML=[['hotel','Hotel Booking'],['transport','Transport Booking']].map(([k,t])=>`<button class="chip ${k===bTab?'on':''}" data-act="bt" data-v="${k}">${t}</button>`).join('');
+  const l=bookings().filter(b=>b.kind===bTab);
+  $('#bList').innerHTML=l.length?l.map(b=>`<div class="brow"><div><b>${esc(b.name)}</b><small>${esc(b.loc)} · ${esc(b.start)} → ${esc(b.end)} · ${b.pax} pax · ${b.days} day(s) · $${b.price}</small><span class="st ${b.status==='Confirmed'?'ok':''}">${b.status}</span></div>
+    <div>${b.status==='Confirmed'?'':`<button class="btn primary" data-act="bc" data-id="${b.id}">Booking Confirm</button> `}<button class="btn darkbtn" data-act="cancel" data-id="${b.id}">Cancel</button></div></div>`).join(''):'<p class="muted">No bookings yet. Choose a hotel or transport first.</p>';
+}
+const setBookings=fn=>{const all=store.get('travello_bookings',[]);store.set('travello_bookings',fn(all));drawBookings()};
 
-      // ---------- request buttons (hotel / transport) ----------
-      $$('[data-request]').forEach(b => b.addEventListener('click', () => {
-        $('#requestType').value = b.dataset.request;
-        $('#requestItem').value = b.dataset.item;
-        $('#requestDate').value = '';
-        open('#requestModal');
-      }));
-
-      // ---------- account buttons ----------
-      $$('[data-account]').forEach(b => b.addEventListener('click', () => {
-        $('#accountTitle').textContent = b.dataset.account === 'signup'
-          ? 'Create your Travello profile'
-          : 'Welcome back to Travello';
-        open('#accountModal');
-      }));
-
-      // ---------- close modals ----------
-      $$('[data-close]').forEach(b => b.addEventListener('click', () => close(b.closest('.modal'))));
-      $$('.modal').forEach(m => m.addEventListener('click', e => { if (e.target === m) close(m); }));
-      document.addEventListener('keydown', e => { if (e.key === 'Escape') $$('.modal.open').forEach(close); });
-
-      // ---------- request form submit ----------
-      $('#requestForm').addEventListener('submit', e => {
-        e.preventDefault();
-        const request = {
-          id: 'TRV-' + Date.now(),
-          type: $('#requestType').value,
-          item: $('#requestItem').value.trim(),
-          name: $('#requestName').value.trim(),
-          email: $('#requestEmail').value.trim(),
-          date: $('#requestDate').value,
-          notes: $('#requestNotes').value.trim(),
-          createdAt: new Date().toISOString(),
-          status: 'Demo request - not confirmed'
-        };
-        try {
-          const old = JSON.parse(localStorage.getItem('travello_demo_requests') || '[]');
-          old.push(request);
-          localStorage.setItem('travello_demo_requests', JSON.stringify(old));
-          close($('#requestModal'));
-          $('#requestForm').reset();
-          notify(`Demo request ${request.id} saved in this browser. No real booking was made.`);
-        } catch (err) {
-          notify('Browser storage is unavailable; request was not saved.');
-        }
-      });
-
-      // ---------- account form submit ----------
-      $('#accountForm').addEventListener('submit', e => {
-        e.preventDefault();
-        const name = $('#accountName').value.trim();
-        close($('#accountModal'));
-        $('#accountForm').reset();
-        notify(`Hello ${name}! Authentication must be connected to a backend.`);
-      });
-
-      // ---------- mobile menu ----------
-      $('#menuToggle').addEventListener('click', () => {
-        const openNav = $('#navLinks').classList.toggle('open');
-        $('#menuToggle').setAttribute('aria-expanded', String(openNav));
-      });
-
-      $$('#navLinks a').forEach(a => a.addEventListener('click', () => {
-        $('#navLinks').classList.remove('open');
-        $('#menuToggle').setAttribute('aria-expanded', 'false');
-      }));
-    })();
-  </script>
+// ---- one click handler for everything ----
+document.addEventListener('click',e=>{
+  const g=e.target.closest('[data-go]');if(g){e.preventDefault();go(g.dataset.go);return}
+  const a=e.target.closest('[data-act]');if(!a)return;const act=a.dataset.act,v=a.dataset.v;
+  if(act==='logout'){session=null;store.set('travello_session',null);go('welcome')}
+  else if(act==='hf'){hF=v;drawHotels()}else if(act==='tf'){tF=v;drawTransport()}else if(act==='bt'){bTab=v;drawBookings()}
+  else if(act==='open')openModal(a.dataset.kind,+a.dataset.i);
+  else if(act==='close')$('#modal').classList.remove('show');
+  else if(act==='confirm'){
+    const r=calc(),H=cur.kind==='hotel';
+    if(!r.days)return toast('Please choose valid start and end dates.');
+    if(!H&&$('#mNic').value.trim().length<5)return toast('Please enter your NIC.');
+    setBookings(all=>[...all,{id:'TRV-'+Date.now(),user:session.email,kind:cur.kind,name:cur.it.name,loc:`${search.loc}, ${cname()}`,start:$('#mStart').value,end:$('#mEnd').value,pax:r.pax,nic:H?'':$('#mNic').value.trim(),days:r.days,price:r.price,status:'Pending'}]);
+    $('#modal').classList.remove('show');bTab=cur.kind;toast('Booking added. Confirm it on the Booking page (demo only).');go('booking');
+  }
+  else if(act==='bc')setBookings(all=>all.map(b=>b.id===a.dataset.id?{...b,status:'Confirmed'}:b));
+  else if(act==='cancel')setBookings(all=>all.filter(b=>b.id!==a.dataset.id));
+});
+go(session?'home':'welcome');
+})();
+</script>
 </body>
 </html>
